@@ -411,12 +411,18 @@ window.add=function(){
   let type=mt||roomDefaultType;
   if(!name){toast('⚠️ Nhập tên thành viên!');return;}
   if(type!=='baby'&&(!h||!w||h<=0||w<=0)){toast('⚠️ Nhập chiều cao và cân nặng!');return;}
+  // Kiểm tra tên trùng
+  let existingNames=Object.values(members).map(m=>m.name.toLowerCase());
+  if(existingNames.includes(name.toLowerCase())){
+    showPopup({
+      icon:'⚠️',
+      title:'Tên thành viên đã tồn tại!',
+      msg:`"${name}" đã được thêm vào danh sách. Vui lòng dùng tên đầy đủ để phân biệt (VD: Gia Bảo A, Gia Bảo B).`,
+      btns:[{label:'Đã hiểu',cls:'confirm',fn:()=>closePopup()}]
+    });
+    return;
+  }
   let suggested=calcSize(type,h,w).size;
-  let finalSize=document.getElementById('selectedSize').value||suggested;
-  // Xử lý tên trùng: thêm số phân biệt
-  let existingNames=Object.values(members).map(m=>m.name);
-  let dupCount=existingNames.filter(n=>n===name||n.startsWith(name+' (')).length;
-  let displayName=dupCount>0?`${name} (${dupCount+1})`:name;
   push(ref(db,'rooms/'+currentRoom+'/members'),{name:displayName,type,suggested,finalSize,ts:Date.now()});
   document.getElementById('mName').value='';
   document.getElementById('mH').value='';
