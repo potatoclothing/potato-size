@@ -282,7 +282,10 @@ badge.style.cssText='margin-left:auto;background:#22c55e;color:#fff;font-size:10
 const TYPES={unisex:'Áo Thun Unisex',oversized:'Áo Thun Oversized',polo_unisex:'Áo Polo Unisex',polo_oversized:'Áo Polo Oversized (R18)',zippy_polo:'Zippy Polo',polo_nu:'Áo Polo Nữ',bong_chay:'Áo Bóng Chày',bong_bau_duc:'Áo Bóng Bầu Dục (R60)',bong_ro:'Set Bóng Rổ',raglan:'Áo Raglan',so_mi:'Sơ mi',so_mi_casual:'Sơ mi Casual (R54)',so_mi_co_tru:'Sơ mi Cổ trụ (R69)',hoodie:'Hoodie (R10)',sweater_zip:'Sweater Zip',sweater:'Sweater (R9)',cardigan:'Cardigan (R50)',baby_tee:'Baby Tee (R45)',the_thao_nu:'Thể Thao Nữ (R89)',sporty_zip_nam:'Sporty Zip Nam (R101)',tanktop:'Tanktop (R92)',quan_short:'Quần Short (R25)',baby:'Áo Baby'};
 function tn(v){return TYPES[v]||v;}
 
-let currentRoom=null,roomDefaultType='unisex',roomPass='',members={};
+// Session key - mỗi trình duyệt có 1 key riêng
+let sessionKey=localStorage.getItem('potato_session');
+if(!sessionKey){sessionKey=Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem('potato_session',sessionKey);}
+
 
 // ── UTILS ──
 function toast(msg){
@@ -517,7 +520,7 @@ window.addMember=function(){
   let suggested=calcSize(type,h,w);
   let finalSize=customSize||suggested;
 
-  push(ref(db,'rooms/'+currentRoom+'/members'),{name,type,suggested,finalSize,ts:Date.now()});
+  push(ref(db,'rooms/'+currentRoom+'/members'),{name,type,suggested,finalSize,sessionKey,ts:Date.now()});
 
   // Reset form
   document.getElementById('mName').value='';
@@ -582,7 +585,7 @@ function render(){
       <td style="font-weight:600">${i+1}. ${m.name}${tag}</td>
       <td style="font-size:11px">${tn(m.type)}</td>
       <td>${badge}</td>
-      <td><button class="btn-del" onclick="removeMember('${m.key}')">✕</button></td>
+      <td>${delBtn}</td>
     </tr>`;
   }).join('');
   document.getElementById('tblWrap').innerHTML=`<div class="tbl-wrap"><table>
