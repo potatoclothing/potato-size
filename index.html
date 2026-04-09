@@ -572,7 +572,7 @@ function render(){
     sw.style.display='none';ew.style.display='none';cb.style.display='none';return;
   }
   cb.style.display='';ew.style.display='';sw.style.display='';
-  let major=getMajor(arr);
+  let major=roomDefaultType;
   let rows=arr.map((m,i)=>{
     let odd=m.type!==major;
     let tag=odd?`<span class="odd-tag">KHÁC</span>`:'';
@@ -611,8 +611,7 @@ function render(){
 window.exportPDF=function(){
   let arr=Object.entries(members).map(([k,v])=>({...v,key:k})).sort((a,b)=>a.ts-b.ts);
   if(!arr.length){toast('⚠️ Chưa có thành viên!');return;}
-  let major=getMajor(arr);
-  let multi=new Set(arr.map(x=>x.type)).size>1;
+  let major=roomDefaultType;
   let sc={};
   arr.forEach(m=>{
     let fs=m.finalSize||m.suggested||'?';
