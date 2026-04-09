@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Potato Clothing – Tra Cứu Size Nhóm</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--y:#f3bb23;--yd:#e0a800;--r:#e53935;--dark:#1a1a2e;--gray:#6b7280;--gl:#f9fafb;--bd:#e5e7eb;--w:#fff;}
+body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#fffbef,#fff8e1,#fffaf2);min-height:100vh;color:var(--dark);}
+.hdr{background:var(--dark);padding:16px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.3);}
+.logo{width:40px;height:40px;background:var(--y);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.hdr h1{font-size:15px;font-weight:800;color:#fff;}
+.hdr p{font-size:11px;color:#aaa;}
+.hdr-badge{margin-left:auto;background:var(--y);color:var(--dark);font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;}
+.wrap{max-width:760px;margin:0 auto;padding:24px 14px 60px;}
+.card{background:var(--w);border-radius:18px;padding:24px;margin-bottom:18px;box-shadow:0 4px 24px rgba(0,0,0,.07);border:1px solid rgba(243,187,35,.2);position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--y);}
+.slabel{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--yd);text-transform:uppercase;margin-bottom:4px;}
+.stitle{font-size:17px;font-weight:800;margin-bottom:18px;}
+label{display:block;font-size:11px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px;}
+select,input{width:100%;padding:12px 14px;border:2px solid var(--bd);border-radius:10px;font-size:15px;font-family:'Inter',sans-serif;color:var(--dark);background:var(--gl);transition:all .2s;outline:none;}
+select:focus,input:focus{border-color:var(--y);background:#fff;box-shadow:0 0 0 4px rgba(243,187,35,.12);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+@media(max-width:500px){.grid2{grid-template-columns:1fr;}}
+.mb14{margin-bottom:14px;}
+.btn-add{width:100%;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--y),var(--yd));color:var(--dark);font-weight:800;font-size:15px;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;box-shadow:0 4px 15px rgba(243,187,35,.4);}
+.btn-add:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(243,187,35,.5);}
+.btn-add:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.btn-pdf{width:100%;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--dark),#2d2d4e);color:#fff;font-weight:800;font-size:15px;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;box-shadow:0 4px 15px rgba(0,0,0,.2);}
+.btn-pdf:hover{transform:translateY(-2px);}
+.btn-del{background:#fff;color:var(--r);border:2px solid #fecaca;font-size:11px;padding:5px 10px;border-radius:7px;cursor:pointer;font-weight:700;font-family:'Inter',sans-serif;}
+.btn-del:hover{background:#fff5f5;}
+.btn-clear{background:transparent;color:var(--r);border:2px solid #fecaca;font-size:12px;padding:6px 14px;border-radius:8px;cursor:pointer;font-weight:700;font-family:'Inter',sans-serif;}
+.tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--bd);margin-top:14px;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead tr{background:var(--dark);}
+thead th{padding:11px 12px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--y);}
+tbody tr{border-bottom:1px solid var(--bd);transition:background .15s;}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:#fffbef;}
+tbody td{padding:10px 12px;vertical-align:middle;}
+tbody tr.odd{background:#fff5f5!important;}
+tbody tr.odd:hover{background:#fee2e2!important;}
+tbody tr.odd td{color:var(--r);}
+tbody tr.odd .sbadge{background:var(--r);color:#fff;}
+.sbadge{display:inline-block;background:var(--y);color:var(--dark);font-weight:800;font-size:13px;padding:3px 11px;border-radius:7px;min-width:40px;text-align:center;}
+.sbadge.out{background:#e5e7eb;color:#9ca3af;font-size:10px;}
+.odd-tag{background:var(--r);color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;margin-left:5px;vertical-align:middle;}
+.stats-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+.stat-chip{background:var(--w);border:2px solid var(--y);border-radius:12px;padding:10px 16px;text-align:center;min-width:68px;}
+.stat-chip .sl{font-size:10px;font-weight:700;color:var(--gray);text-transform:uppercase;}
+.stat-chip .sn{font-size:26px;font-weight:900;color:var(--dark);line-height:1.1;}
+.divider{display:flex;align-items:center;gap:10px;margin:16px 0 12px;}
+.divider span{font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1px;white-space:nowrap;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--bd);}
+.cnt-badge{background:var(--dark);color:var(--y);font-size:12px;font-weight:800;padding:2px 9px;border-radius:20px;margin-left:8px;}
+.empty{text-align:center;padding:36px 20px;color:var(--gray);}
+.empty-icon{font-size:44px;margin-bottom:10px;}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--dark);color:#fff;padding:11px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:999;transition:transform .3s cubic-bezier(.34,1.56,.64,1);pointer-events:none;white-space:nowrap;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.hdr-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+.pdf-hint{text-align:center;font-size:11px;color:var(--gray);margin-top:8px;}
+
+/* ROOM UI */
+.room-box{background:var(--gl);border:2px dashed var(--bd);border-radius:14px;padding:20px;text-align:center;margin-bottom:18px;}
+.room-code{font-size:32px;font-weight:900;letter-spacing:6px;color:var(--dark);background:var(--y);display:inline-block;padding:8px 24px;border-radius:10px;margin:10px 0;}
+.room-tabs{display:flex;gap:0;margin-bottom:18px;border-radius:12px;overflow:hidden;border:2px solid var(--bd);}
+.room-tab{flex:1;padding:12px;border:none;background:var(--gl);font-family:'Inter',sans-serif;font-weight:700;font-size:14px;cursor:pointer;transition:all .2s;}
+.room-tab.active{background:var(--dark);color:var(--y);}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;margin-right:6px;animation:pulse-dot 1.5s infinite;}
+@keyframes pulse-dot{0%,100%{opacity:1;}50%{opacity:.3;}}
+.loading{text-align:center;padding:30px;color:var(--gray);font-size:13px;}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="logo">🥔</div>
+  <div>
+    <h1>POTATO CLOTHING</h1>
+    <p>Tra cứu size nhóm – Realtime</p>
+  </div>
+  <div class="hdr-badge" id="connStatus">⏳ Đang kết nối</div>
+</div>
+
+<div class="wrap">
+
+  <!-- CHỌN CHẾ ĐỘ -->
+  <div class="card" id="modeCard">
+    <div class="slabel">Bắt đầu</div>
+    <div class="stitle">Bạn là ai trong đơn này?</div>
+    <div class="room-tabs">
+      <button class="room-tab active" onclick="setMode('leader')">👑 Trưởng nhóm</button>
+      <button class="room-tab" onclick="setMode('member')">👤 Thành viên</button>
+    </div>
+
+    <!-- TRƯỞNG NHÓM -->
+    <div id="leaderSetup">
+      <div class="mb14">
+        <label>Tên đơn hàng (để phân biệt các đơn)</label>
+        <input type="text" id="roomName" placeholder="Ví dụ: Ao-Lop-12A, Team-Marketing..."/>
+      </div>
+      <div class="mb14">
+        <label>Loại áo mặc định cho cả nhóm</label>
+        <select id="defaultType" onchange="onDefaultChange()">
+          <option value="unisex">Áo Thun Unisex</option>
+          <option value="oversized">Áo Thun Oversized</option>
+          <option value="polo_unisex">Áo Polo Unisex</option>
+          <option value="polo_oversized">Áo Polo Oversized (R18)</option>
+          <option value="zippy_polo">Zippy Polo</option>
+          <option value="polo_nu">Áo Polo Nữ</option>
+          <option value="bong_chay">Áo Bóng Chày</option>
+          <option value="bong_bau_duc">Áo Bóng Bầu Dục (R60)</option>
+          <option value="bong_ro">Set Bóng Rổ</option>
+          <option value="raglan">Áo Raglan</option>
+          <option value="so_mi">Sơ mi</option>
+          <option value="so_mi_casual">Sơ mi Casual (R54)</option>
+          <option value="so_mi_co_tru">Sơ mi Cổ trụ (R69)</option>
+          <option value="hoodie">Hoodie (R10)</option>
+          <option value="sweater_zip">Sweater Zip</option>
+          <option value="sweater">Sweater (R9)</option>
+          <option value="cardigan">Cardigan (R50)</option>
+          <option value="baby_tee">Baby Tee (R45)</option>
+          <option value="the_thao_nu">Thể Thao Nữ (R89)</option>
+          <option value="sporty_zip_nam">Sporty Zip Nam (R101)</option>
+          <option value="tanktop">Tanktop (R92)</option>
+          <option value="quan_short">Quần Short (R25)</option>
+          <option value="baby">Áo Baby</option>
+        </select>
+      </div>
+      <button class="btn-add" onclick="createRoom()">🚀 Tạo phòng đơn hàng</button>
+    </div>
+
+    <!-- THÀNH VIÊN -->
+    <div id="memberSetup" style="display:none">
+      <div class="mb14">
+        <label>Nhập mã phòng do trưởng nhóm gửi</label>
+        <input type="text" id="joinCode" placeholder="Ví dụ: Ao-Lop-12A" style="text-transform:uppercase;letter-spacing:2px;font-weight:700;font-size:18px;"/>
+      </div>
+      <button class="btn-add" onclick="joinRoom()">🔗 Vào phòng</button>
+    </div>
+  </div>
+
+  <!-- PHÒNG ĐÃ VÀO -->
+  <div id="roomPanel" style="display:none">
+
+    <!-- INFO PHÒNG -->
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+        <div>
+          <div class="slabel">Phòng đang hoạt động</div>
+          <div style="font-size:20px;font-weight:900;letter-spacing:2px;" id="roomCodeDisplay"></div>
+          <div style="font-size:12px;color:var(--gray);margin-top:4px">Loại áo: <strong id="roomTypeDisplay"></strong></div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:12px;color:var(--gray)"><span class="status-dot"></span>Realtime</div>
+          <button class="btn-clear" style="margin-top:6px" onclick="copyLink()">📋 Copy mã phòng</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- NHẬP THÀNH VIÊN -->
+    <div class="card">
+      <div class="slabel">Điền thông tin</div>
+      <div class="stitle">Thêm thành viên</div>
+      <div class="mb14">
+        <label>Tên thành viên</label>
+        <input type="text" id="mName" placeholder="Ví dụ: Nguyễn Văn A" onkeydown="if(event.key==='Enter')add()"/>
+      </div>
+      <div class="grid2">
+        <div>
+          <label>Chiều cao (cm)</label>
+          <input type="number" id="mH" placeholder="Ví dụ: 165" onkeydown="if(event.key==='Enter')add()"/>
+        </div>
+        <div>
+          <label>Cân nặng (kg)</label>
+          <input type="number" id="mW" placeholder="Ví dụ: 55" onkeydown="if(event.key==='Enter')add()"/>
+        </div>
+      </div>
+      <div class="mb14">
+        <label>Loại áo (mặc định theo phòng)</label>
+        <select id="mType">
+          <option value="" id="defOpt">Áo Thun Unisex</option>
+          <option value="unisex">Áo Thun Unisex</option>
+          <option value="oversized">Áo Thun Oversized</option>
+          <option value="polo_unisex">Áo Polo Unisex</option>
+          <option value="polo_oversized">Áo Polo Oversized (R18)</option>
+          <option value="zippy_polo">Zippy Polo</option>
+          <option value="polo_nu">Áo Polo Nữ</option>
+          <option value="bong_chay">Áo Bóng Chày</option>
+          <option value="bong_bau_duc">Áo Bóng Bầu Dục (R60)</option>
+          <option value="bong_ro">Set Bóng Rổ</option>
+          <option value="raglan">Áo Raglan</option>
+          <option value="so_mi">Sơ mi</option>
+          <option value="so_mi_casual">Sơ mi Casual (R54)</option>
+          <option value="so_mi_co_tru">Sơ mi Cổ trụ (R69)</option>
+          <option value="hoodie">Hoodie (R10)</option>
+          <option value="sweater_zip">Sweater Zip</option>
+          <option value="sweater">Sweater (R9)</option>
+          <option value="cardigan">Cardigan (R50)</option>
+          <option value="baby_tee">Baby Tee (R45)</option>
+          <option value="the_thao_nu">Thể Thao Nữ (R89)</option>
+          <option value="sporty_zip_nam">Sporty Zip Nam (R101)</option>
+          <option value="tanktop">Tanktop (R92)</option>
+          <option value="quan_short">Quần Short (R25)</option>
+          <option value="baby">Áo Baby</option>
+        </select>
+      </div>
+      <button class="btn-add" id="addBtn" onclick="add()">＋ Thêm thành viên</button>
+    </div>
+
+    <!-- DANH SÁCH -->
+    <div class="card">
+      <div class="hdr-row">
+        <div>
+          <div class="slabel">Danh sách realtime</div>
+          <div class="stitle" style="margin-bottom:0">Thành viên <span class="cnt-badge" id="cnt">0</span></div>
+        </div>
+        <button class="btn-clear" id="clearBtn" onclick="clearAll()" style="display:none">🗑 Xóa tất cả</button>
+      </div>
+      <div id="tblWrap">
+        <div class="loading">⏳ Đang tải dữ liệu...</div>
+      </div>
+      <div id="statsWrap" style="display:none">
+        <div class="divider"><span>Thống kê size</span></div>
+        <div class="stats-row" id="statsGrid"></div>
+      </div>
+    </div>
+
+    <!-- XUẤT PDF -->
+    <div id="exportWrap" style="display:none">
+      <button class="btn-pdf" onclick="exportPDF()">📄 Xuất file PDF</button>
+      <p class="pdf-hint">Mở tab mới → Ctrl+P → Save as PDF</p>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+window.setMode=window.setMode||function(){};
+// expose early so HTML onclick works before module loads
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {getDatabase,ref,set,push,remove,onValue,get} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+const firebaseConfig={
+  apiKey:"AIzaSyBS1eP8Ez5ZwCbg01LFjJhJ5GiIxu3VUX4",
+  authDomain:"potatoclothing-size.firebaseapp.com",
+  databaseURL:"https://potatoclothing-size-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId:"potatoclothing-size",
+  storageBucket:"potatoclothing-size.firebasestorage.app",
+  messagingSenderId:"239815824014",
+  appId:"1:239815824014:web:97a7d0ce1df3c76178efdf"
+};
+
+const app=initializeApp(firebaseConfig);
+const db=getDatabase(app);
+document.getElementById('connStatus').textContent='✅ Đã kết nối';
+document.getElementById('connStatus').style.background='#22c55e';
+document.getElementById('connStatus').style.color='#fff';
+
+const TYPES={
+  unisex:'Áo Thun Unisex',oversized:'Áo Thun Oversized',polo_unisex:'Áo Polo Unisex',
+  polo_oversized:'Áo Polo Oversized (R18)',zippy_polo:'Zippy Polo',polo_nu:'Áo Polo Nữ',
+  bong_chay:'Áo Bóng Chày',bong_bau_duc:'Áo Bóng Bầu Dục (R60)',bong_ro:'Set Bóng Rổ',
+  raglan:'Áo Raglan',so_mi:'Sơ mi',so_mi_casual:'Sơ mi Casual (R54)',
+  so_mi_co_tru:'Sơ mi Cổ trụ (R69)',hoodie:'Hoodie (R10)',sweater_zip:'Sweater Zip',
+  sweater:'Sweater (R9)',cardigan:'Cardigan (R50)',baby_tee:'Baby Tee (R45)',
+  the_thao_nu:'Thể Thao Nữ (R89)',sporty_zip_nam:'Sporty Zip Nam (R101)',
+  tanktop:'Tanktop (R92)',quan_short:'Quần Short (R25)',baby:'Áo Baby'
+};
+
+let currentRoom=null,roomDefaultType='unisex',members={};
+
+function tn(v){return TYPES[v]||v;}
+
+window.setMode=function(m){
+  document.querySelectorAll('.room-tab').forEach((t,i)=>t.classList.toggle('active',i===(m==='leader'?0:1)));
+  document.getElementById('leaderSetup').style.display=m==='leader'?'':'none';
+  document.getElementById('memberSetup').style.display=m==='member'?'':'none';
+};
+
+window.onDefaultChange=function(){
+  let sel=document.getElementById('defaultType');
+  document.getElementById('defOpt').textContent=sel.options[sel.selectedIndex].text;
+};
+
+window.createRoom=function(){
+  let name=document.getElementById('roomName').value.trim().replace(/\s+/g,'-').toUpperCase();
+  if(!name){toast('⚠️ Nhập tên đơn hàng đi bạn!');return;}
+  let type=document.getElementById('defaultType').value;
+  let roomRef=ref(db,'rooms/'+name);
+  set(roomRef,{defaultType:type,createdAt:Date.now()}).then(()=>{
+    enterRoom(name,type);
+    toast('🎉 Đã tạo phòng '+name);
+  }).catch(e=>toast('❌ Lỗi: '+e.message));
+};
+
+window.joinRoom=function(){
+  let code=document.getElementById('joinCode').value.trim().toUpperCase();
+  if(!code){toast('⚠️ Nhập mã phòng đi bạn!');return;}
+  get(ref(db,'rooms/'+code)).then(snap=>{
+    if(!snap.exists()){toast('❌ Không tìm thấy phòng '+code);return;}
+    let data=snap.val();
+    enterRoom(code,data.defaultType||'unisex');
+    toast('✅ Đã vào phòng '+code);
+  }).catch(e=>toast('❌ Lỗi: '+e.message));
+};
+
+function enterRoom(code,type){
+  currentRoom=code;
+  roomDefaultType=type;
+  document.getElementById('modeCard').style.display='none';
+  document.getElementById('roomPanel').style.display='';
+  document.getElementById('roomCodeDisplay').textContent=code;
+  document.getElementById('roomTypeDisplay').textContent=tn(type);
+  document.getElementById('defOpt').textContent=tn(type);
+  listenMembers();
+}
+
+function listenMembers(){
+  let mRef=ref(db,'rooms/'+currentRoom+'/members');
+  onValue(mRef,snap=>{
+    members={};
+    if(snap.exists()) members=snap.val();
+    render();
+  });
+}
+
+window.add=function(){
+  let name=document.getElementById('mName').value.trim();
+  let h=parseInt(document.getElementById('mH').value);
+  let w=parseInt(document.getElementById('mW').value);
+  let mt=document.getElementById('mType').value;
+  let type=mt||roomDefaultType;
+  if(!name){toast('⚠️ Nhập tên thành viên!');return;}
+  if(type!=='baby'&&(!h||!w||h<=0||w<=0)){toast('⚠️ Nhập chiều cao và cân nặng!');return;}
+  let r=calcSize(type,h,w);
+  let mRef=ref(db,'rooms/'+currentRoom+'/members');
+  push(mRef,{name,h:h||0,w:w||0,type,size:r.size,out:r.out||false,ts:Date.now()});
+  document.getElementById('mName').value='';
+  document.getElementById('mH').value='';
+  document.getElementById('mW').value='';
+  document.getElementById('mType').value='';
+  document.getElementById('mName').focus();
+  toast('✅ Đã thêm '+name);
+};
+
+window.removeMember=function(key){
+  remove(ref(db,'rooms/'+currentRoom+'/members/'+key));
+};
+
+window.clearAll=function(){
+  if(confirm('Xóa tất cả thành viên?')){
+    set(ref(db,'rooms/'+currentRoom+'/members'),null);
+  }
+};
+
+window.copyLink=function(){
+  navigator.clipboard.writeText(currentRoom).then(()=>toast('📋 Đã copy mã phòng: '+currentRoom));
+};
+
+function getMajor(arr){
+  let c={};arr.forEach(m=>c[m.type]=(c[m.type]||0)+1);
+  return Object.entries(c).sort((a,b)=>b[1]-a[1])[0][0];
+}
+
+function render(){
+  let arr=Object.entries(members).map(([k,v])=>({...v,key:k})).sort((a,b)=>a.ts-b.ts);
+  document.getElementById('cnt').textContent=arr.length;
+  let wrap=document.getElementById('tblWrap');
+  let sw=document.getElementById('statsWrap');
+  let ew=document.getElementById('exportWrap');
+  let cb=document.getElementById('clearBtn');
+
+  if(!arr.length){
+    wrap.innerHTML='<div class="empty"><div class="empty-icon">👥</div><p>Chưa có thành viên nào.<br/>Ai cũng có thể vào phòng và điền thông tin nhé!</p></div>';
+    sw.style.display='none';ew.style.display='none';cb.style.display='none';return;
+  }
+  cb.style.display='';ew.style.display='';sw.style.display='';
+  let major=getMajor(arr);
+  let rows=arr.map((m,i)=>{
+    let odd=m.type!==major;
+    let hw=m.type==='baby'?'—':`${m.h}cm / ${m.w}kg`;
+    let badge=m.out?`<span class="sbadge out">Liên hệ</span>`:`<span class="sbadge">${m.size}</span>`;
+    let tag=odd?`<span class="odd-tag">KHÁC</span>`:'';
+    return `<tr class="${odd?'odd':''}">
+      <td style="font-weight:600">${i+1}. ${m.name}${tag}</td>
+      <td style="font-size:12px">${tn(m.type)}</td>
+      <td style="font-size:12px">${hw}</td>
+      <td>${badge}</td>
+      <td><button class="btn-del" onclick="removeMember('${m.key}')">✕</button></td>
+    </tr>`;
+  }).join('');
+  wrap.innerHTML=`<div class="tbl-wrap"><table>
+    <thead><tr><th>Tên thành viên</th><th>Loại áo</th><th>Cao / Nặng</th><th>Size</th><th></th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>`;
+
+  let c={};let multi=new Set(arr.map(x=>x.type)).size>1;
+  arr.forEach(m=>{
+    let k=m.size+(multi?` (${tn(m.type)})`:'');
+    if(m.type==='baby') k='Áo Baby';
+    c[k]=(c[k]||0)+1;
+  });
+  const ORD=['XXS','XS','S','M','L','XL','XXL','XXXL','2XL','Liên hệ','Áo Baby'];
+  let keys=Object.keys(c).sort((a,b)=>{
+    let ai=ORD.findIndex(o=>a.startsWith(o)),bi=ORD.findIndex(o=>b.startsWith(o));
+    return (ai<0?99:ai)-(bi<0?99:bi);
+  });
+  document.getElementById('statsGrid').innerHTML=keys.map(k=>`
+    <div class="stat-chip"><div class="sl">${k}</div><div class="sn">${c[k]}</div></div>`).join('');
+}
+
+window.exportPDF=function(){
+  let arr=Object.entries(members).map(([k,v])=>({...v,key:k})).sort((a,b)=>a.ts-b.ts);
+  if(!arr.length){toast('⚠️ Chưa có thành viên!');return;}
+  let major=getMajor(arr);
+  let multi=new Set(arr.map(x=>x.type)).size>1;
+  let sc={};
+  arr.forEach(m=>{
+    let k=m.size+(multi?` (${tn(m.type)})`:'');
+    if(m.type==='baby') k='Áo Baby';
+    sc[k]=(sc[k]||0)+1;
+  });
+  const ORD=['XXS','XS','S','M','L','XL','XXL','XXXL','2XL'];
+  let sk=Object.keys(sc).sort((a,b)=>{
+    let ai=ORD.findIndex(o=>a.startsWith(o)),bi=ORD.findIndex(o=>b.startsWith(o));
+    return (ai<0?99:ai)-(bi<0?99:bi);
+  });
+  let mRows=arr.map((m,i)=>{
+    let odd=m.type!==major;
+    let hw=m.type==='baby'?'—':`${m.h}cm / ${m.w}kg`;
+    let s=odd?'color:#e53935;font-weight:700':'';
+    let bg=odd?'background:#fff5f5':'i%2===0?"background:#fffbef":""';
+    let tag=odd?' <span style="background:#e53935;color:#fff;font-size:9px;padding:1px 6px;border-radius:8px">KHÁC</span>':'';
+    return `<tr style="border-bottom:1px solid #eee;${odd?'background:#fff5f5':''}">
+      <td style="padding:7px 10px;${s}">${i+1}</td>
+      <td style="padding:7px 10px;font-weight:600;${s}">${m.name}${tag}</td>
+      <td style="padding:7px 10px;font-size:12px;${s}">${tn(m.type)}</td>
+      <td style="padding:7px 10px;${s}">${hw}</td>
+      <td style="padding:7px 10px;text-align:center;font-weight:800;font-size:15px;${s}">${m.size}</td>
+    </tr>`;
+  }).join('');
+  let sRows=sk.map(k=>`<tr style="border-bottom:1px solid #eee">
+    <td style="padding:7px 12px;font-weight:700">${k}</td>
+    <td style="padding:7px 12px;text-align:center;font-size:20px;font-weight:900">${sc[k]}</td>
+    <td style="padding:7px 12px;color:#888;font-size:12px">người</td>
+  </tr>`).join('');
+  let html=`<!DOCTYPE html><html><head><meta charset="UTF-8"/>
+  <title>Potato Size – ${currentRoom}</title>
+  <style>*{margin:0;padding:0;box-sizing:border-box;}body{font-family:Arial,sans-serif;color:#1a1a2e;padding:24px;font-size:13px;}table{width:100%;border-collapse:collapse;}th{text-align:left;font-size:11px;letter-spacing:.6px;}</style>
+  </head><body>
+  <div style="background:#1a1a2e;color:#f3bb23;padding:16px 20px;border-radius:10px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center">
+    <div><div style="font-size:18px;font-weight:900">🥔 POTATO CLOTHING</div>
+    <div style="font-size:11px;color:#aaa;margin-top:2px">Phòng: ${currentRoom}</div></div>
+    <div style="text-align:right;font-size:11px;color:#aaa">Ngày: ${new Date().toLocaleDateString('vi-VN')}<br/>Tổng: ${arr.length} thành viên</div>
+  </div>
+  <p style="margin-bottom:10px;font-size:12px;color:#555">Loại áo chủ đạo: <strong>${tn(major)}</strong></p>
+  <table><thead style="background:#1a1a2e"><tr>
+    <th style="padding:8px 10px;color:#f3bb23;width:24px">#</th>
+    <th style="padding:8px 10px;color:#f3bb23">Tên thành viên</th>
+    <th style="padding:8px 10px;color:#f3bb23">Loại áo</th>
+    <th style="padding:8px 10px;color:#f3bb23">Cao / Nặng</th>
+    <th style="padding:8px 10px;color:#f3bb23;text-align:center">Size</th>
+  </tr></thead><tbody>${mRows}</tbody></table>
+  <h3 style="margin:22px 0 10px;font-size:13px;font-weight:800">THỐNG KÊ SIZE</h3>
+  <table style="width:auto;min-width:180px"><thead style="background:#f3bb23"><tr>
+    <th style="padding:7px 12px;color:#1a1a2e">Size</th>
+    <th style="padding:7px 12px;color:#1a1a2e;text-align:center">Số lượng</th>
+    <th style="padding:7px 12px;color:#1a1a2e"></th>
+  </tr></thead><tbody>${sRows}</tbody></table>
+  <div style="margin-top:28px;padding-top:10px;border-top:1px solid #eee;text-align:center;font-size:10px;color:#aaa">
+    potato.clothing | 028 6683 0386 | info@potato.clothing
+  </div>
+  <script>window.onload=function(){setTimeout(()=>window.print(),300);}<\/script>
+  </body></html>`;
+  let w=window.open('','_blank');
+  if(!w){toast('⚠️ Cho phép popup rồi thử lại!');return;}
+  w.document.write(html);w.document.close();
+  toast('📄 Đang mở cửa sổ in...');
+};
+
+function calcSize(type,h,w){
+  if(type==='baby') return {size:'Đo tay'};
+  let sH=0,sW=0,sizes=[];
+  switch(type){
+    case 'unisex':
+      if(h<153)sH=1;else if(h<=163)sH=2;else if(h<=165)sH=3;else if(h<=172)sH=4;else if(h<=175)sH=5;else if(h<=183)sH=6;else sH=7;
+      if(w<50)sW=1;else if(w<=60)sW=2;else if(w<=65)sW=3;else if(w<=75)sW=4;else if(w<=85)sW=5;else if(w<=95)sW=6;else if(w<=105)sW=7;else sW=8;
+      sizes=["","XS","S","M","L","XL","XXL","XXXL"];break;
+    case 'oversized':
+      if(h<160)sH=1;else if(h<165)sH=2;else if(h<172)sH=3;else if(h<180)sH=4;else sH=5;
+      if(w<60)sW=1;else if(w<65)sW=2;else if(w<75)sW=3;else if(w<85)sW=4;else sW=5;
+      sizes=["","S","M","L","XL"];break;
+    case 'polo_unisex':
+      if(h<153)sH=1;else if(h<=163)sH=2;else if(h<=165)sH=3;else if(h<=172)sH=4;else if(h<=175)sH=5;else if(h<=183)sH=6;else sH=7;
+      if(w<50)sW=1;else if(w<=60)sW=2;else if(w<=65)sW=3;else if(w<=75)sW=4;else if(w<=88)sW=5;else if(w<=95)sW=6;else if(w<=105)sW=7;else sW=8;
+      sizes=["","XS","S","M","L","XL","XXL","XXXL"];break;
+    case 'polo_oversized':
+      if(h<165)sH=1;else if(h<=175)sH=2;else sH=3;
+      if(w<70)sW=1;else if(w<=80)sW=2;else sW=3;
+      sizes=["","S","M","L"];break;
+    case 'zippy_polo':
+      if(h<151)sH=1;else if(h<=155)sH=2;else if(h<=160)sH=3;else if(h<=165)sH=4;else if(h<=175)sH=5;else if(h<=185)sH=6;else sH=7;
+      if(w<45)sW=1;else if(w<=50)sW=2;else if(w<=55)sW=3;else if(w<=65)sW=4;else if(w<=80)sW=5;else if(w<=90)sW=6;else sW=7;
+      sizes=["","XXS","XS","S","M","L","XL"];break;
+    case 'polo_nu':
+      if(h<=150)sH=1;else if(h<=155)sH=2;else if(h<=158)sH=3;else if(h<=162)sH=4;else if(h<=165)sH=5;else if(h<=170)sH=6;else sH=7;
+      if(w<=40)sW=1;else if(w<=45)sW=2;else if(w<=50)sW=3;else if(w<=55)sW=4;else if(w<=60)sW=5;else if(w<=65)sW=6;else sW=7;
+      sizes=["","XS","S","M","L","XL","XXL","XXXL"];break;
+    case 'bong_chay':
+      if(h<165)sH=1;else if(h<=175)sH=2;else sH=3;
+      if(w<65)sW=1;else if(w<=80)sW=2;else sW=3;
+      sizes=["","S","M","L"];break;
+    case 'bong_bau_duc':
+      if(h<165)sH=1;else if(h<=175)sH=2;else if(h<=180)sH=3;else if(h<=190)sH=4;else sH=5;
+      if(w<60)sW=1;else if(w<=65)sW=2;else if(w<=80)sW=3;else if(w<=95)sW=4;else sW=5;
+      sizes=["","S","M","L","XL"];break;
+    case 'bong_ro':
+      if(h<=165)sH=1;else if(h<=172)sH=2;else if(h<=176)sH=3;else if(h<=185)sH=4;else sH=5;
+      if(w<=55)sW=1;else if(w<=65)sW=2;else if(w<=75)sW=3;else if(w<=85)sW=4;else sW=5;
+      sizes=["","S","M","L","XL"];break;
+    case 'raglan':
+      if(h<=170)sH=1;else if(h<=175)sH=2;else if(h<=180)sH=3;else if(h<=185)sH=4;else sH=5;
+      if(w<=60)sW=1;else if(w<=65)sW=2;else if(w<=80)sW=3;else if(w<=90)sW=4;else if(w<=95)sW=5;else sW=6;
+      sizes=["","S","M","L","XL","2XL"];break;
+    case 'so_mi':
+      if(h<170)sH=1;else if(h<180)sH=2;else if(h<185)sH=3;else if(h<190)sH=4;else sH=5;
+      if(w<55)sW=1;else if(w<65)sW=2;else if(w<90)sW=3;else if(w<=95)sW=4;else sW=5;
+      sizes=["","S","M","L","XL","XXL"];break;
+    case 'so_mi_casual':
+      if(h<165)sH=1;else if(h<170)sH=2;else if(h<180)sH=3;else if(h<185)sH=4;else sH=5;
+      if(w<65)sW=1;else if(w<75)sW=2;else if(w<85)sW=3;else if(w<95)sW=4;else sW=5;
+      sizes=["","S","M","L","XL"];break;
+    case 'so_mi_co_tru':
+      if(h<165)sH=1;else if(h<170)sH=2;else if(h<180)sH=3;else if(h<190)sH=4;else sH=5;
+      if(w<65)sW=1;else if(w<70)sW=2;else if(w<75)sW=3;else if(w<90)sW=4;else sW=5;
+      sizes=["","S","M","L","XL"];break;
+    case 'hoodie':
+      if(h<163)sH=1;else if(h<=172)sH=2;else if(h<=175)sH=3;else if(h<=183)sH=4;else sH=5;
+      if(w<63)sW=1;else if(w<=75)sW=2;else if(w<=85)sW=3;else if(w<=95)sW=4;else sW=5;
+      sizes=["","S","M","L","XL","XXL"];break;
+    case 'sweater_zip':
+      if(h<170)sH=1;else if(h<185)sH=2;else sH=3;
+      if(w<75)sW=1;else if(w<95)sW=2;else sW=3;
+      sizes=["","L","XL"];break;
+    case 'sweater':
+      if(h<163)sH=1;else if(h<=172)sH=2;else if(h<=175)sH=3;else if(h<=183)sH=4;else sH=5;
+      if(w<63)sW=1;else if(w<=75)sW=2;else if(w<=85)sW=3;else if(w<=95)sW=4;else sW=5;
+      sizes=["","S","M","L","XL","XXL"];break;
+    case 'cardigan':
+      if(h<165)sH=1;else if(h<175)sH=2;else if(h<=185)sH=3;else if(h<=190)sH=4;else sH=5;
+      if(w<65)sW=1;else if(w<75)sW=2;else if(w<80)sW=3;else sW=4;
+      sizes=["","S","M","L","XL"];break;
+    case 'baby_tee':
+      sH=h<=160?1:2;sW=w<=50?1:2;
+      sizes=["","S","M"];break;
+    case 'the_thao_nu':
+      if(h<=156)sH=1;else if(h<=160)sH=2;else if(h<=163)sH=3;else sH=4;
+      if(w<=48)sW=1;else if(w<=50)sW=2;else if(w<=55)sW=3;else if(w<=70)sW=4;else sW=5;
+      sizes=["","S","M","L","XL","2XL"];break;
+    case 'sporty_zip_nam':
+      if(h<=165)sH=1;else if(h<=175)sH=2;else if(h<=180)sH=3;else sH=4;
+      if(w<=60)sW=1;else if(w<=65)sW=2;else if(w<=70)sW=3;else sW=4;
+      sizes=["","M","L","XL","XXL"];break;
+    case 'tanktop':
+      if(h<=158)sH=1;else if(h<=165)sH=2;else if(h<=175)sH=3;else if(h<=179)sH=4;else sH=5;
+      if(w<=45)sW=1;else if(w<=55)sW=2;else if(w<=65)sW=3;else if(w<=72)sW=4;else sW=5;
+      sizes=["","XS","S","M","L","XL"];break;
+    case 'quan_short':
+      if(h<=165)sH=1;else if(h<=172)sH=2;else if(h<=180)sH=3;else sH=4;
+      if(w<=65)sW=1;else if(w<=85)sW=2;else if(w<=100)sW=3;else sW=4;
+      sizes=["","S","M","L","XL"];break;
+  }
+  let idx=Math.max(sH,sW);
+  if(idx<=0||idx>=sizes.length) return {size:'Liên hệ',out:true};
+  return {size:sizes[idx]};
+}
+
+function toast(msg){
+  let t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+window.toast=toast;
+</script>
+</body>
+</html>
