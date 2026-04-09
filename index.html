@@ -13,24 +13,27 @@ body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#fffbef,#f
 .logo{width:40px;height:40px;background:var(--y);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
 .hdr h1{font-size:15px;font-weight:800;color:#fff;}
 .hdr p{font-size:11px;color:#aaa;}
-.hdr-badge{margin-left:auto;background:var(--y);color:var(--dark);font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;}
+.hdr-badge{margin-left:auto;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--y);color:var(--dark);}
 .wrap{max-width:760px;margin:0 auto;padding:24px 14px 60px;}
 .card{background:var(--w);border-radius:18px;padding:24px;margin-bottom:18px;box-shadow:0 4px 24px rgba(0,0,0,.07);border:1px solid rgba(243,187,35,.2);position:relative;overflow:hidden;}
 .card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--y);}
 .slabel{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--yd);text-transform:uppercase;margin-bottom:4px;}
 .stitle{font-size:17px;font-weight:800;margin-bottom:18px;}
 label{display:block;font-size:11px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px;}
-select,input{width:100%;padding:12px 14px;border:2px solid var(--bd);border-radius:10px;font-size:15px;font-family:'Inter',sans-serif;color:var(--dark);background:var(--gl);transition:all .2s;outline:none;}
+select,input[type=text],input[type=number],input[type=password]{width:100%;padding:12px 14px;border:2px solid var(--bd);border-radius:10px;font-size:15px;font-family:'Inter',sans-serif;color:var(--dark);background:var(--gl);transition:all .2s;outline:none;}
 select:focus,input:focus{border-color:var(--y);background:#fff;box-shadow:0 0 0 4px rgba(243,187,35,.12);}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
 @media(max-width:500px){.grid2{grid-template-columns:1fr;}}
 .mb14{margin-bottom:14px;}
-.btn-add{width:100%;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--y),var(--yd));color:var(--dark);font-weight:800;font-size:15px;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;box-shadow:0 4px 15px rgba(243,187,35,.4);}
-.btn-add:hover{transform:translateY(-2px);}
-.btn-pdf{width:100%;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--dark),#2d2d4e);color:#fff;font-weight:800;font-size:15px;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;}
+.btn-primary{width:100%;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--y),var(--yd));color:var(--dark);font-weight:800;font-size:15px;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;box-shadow:0 4px 15px rgba(243,187,35,.4);}
+.btn-primary:hover{transform:translateY(-2px);}
+.btn-pdf{width:100%;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--dark),#2d2d4e);color:#fff;font-weight:800;font-size:15px;cursor:pointer;font-family:'Inter',sans-serif;}
 .btn-pdf:hover{transform:translateY(-2px);}
 .btn-del{background:#fff;color:var(--r);border:2px solid #fecaca;font-size:11px;padding:5px 10px;border-radius:7px;cursor:pointer;font-weight:700;font-family:'Inter',sans-serif;}
 .btn-clear{background:transparent;color:var(--r);border:2px solid #fecaca;font-size:12px;padding:6px 14px;border-radius:8px;cursor:pointer;font-weight:700;font-family:'Inter',sans-serif;}
+.room-tabs{display:flex;margin-bottom:18px;border-radius:12px;overflow:hidden;border:2px solid var(--bd);}
+.room-tab{flex:1;padding:12px;border:none;background:var(--gl);font-family:'Inter',sans-serif;font-weight:700;font-size:14px;cursor:pointer;transition:all .2s;}
+.room-tab.active{background:var(--dark);color:var(--y);}
 .tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--bd);margin-top:14px;}
 table{width:100%;border-collapse:collapse;font-size:13px;}
 thead tr{background:var(--dark);}
@@ -40,38 +43,28 @@ tbody tr:last-child{border-bottom:none;}
 tbody td{padding:10px 12px;vertical-align:middle;}
 tbody tr.odd{background:#fff5f5!important;}
 tbody tr.odd td{color:var(--r);}
-tbody tr.odd .sbadge-selected{background:var(--r);color:#fff;}
-.odd-tag{background:var(--r);color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;margin-left:5px;vertical-align:middle;}
-
-/* SIZE BUTTONS */
-.size-btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
-.size-btn{padding:5px 12px;border:2px solid var(--bd);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;background:#fff;color:var(--dark);font-family:'Inter',sans-serif;transition:all .15s;}
-.size-btn:hover{border-color:var(--y);}
-.size-btn.suggested{background:var(--y);border-color:var(--yd);color:var(--dark);}
-.size-btn.selected{background:var(--dark);border-color:var(--dark);color:#fff;}
-.size-btn.suggested.selected{background:var(--dark);border-color:var(--dark);color:#fff;}
-
+.odd-tag{background:var(--r);color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;margin-left:5px;}
+.sbadge{display:inline-block;font-weight:900;font-size:14px;padding:4px 14px;border-radius:8px;background:var(--y);color:var(--dark);}
+.sbadge.custom{background:var(--dark);color:#fff;}
 .stats-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
 .stat-chip{background:var(--w);border:2px solid var(--y);border-radius:12px;padding:10px 16px;text-align:center;min-width:68px;}
 .stat-chip .sl{font-size:10px;font-weight:700;color:var(--gray);text-transform:uppercase;}
 .stat-chip .sn{font-size:26px;font-weight:900;color:var(--dark);line-height:1.1;}
 .divider{display:flex;align-items:center;gap:10px;margin:16px 0 12px;}
-.divider span{font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1px;white-space:nowrap;}
+.divider span{font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase;white-space:nowrap;}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--bd);}
 .cnt-badge{background:var(--dark);color:var(--y);font-size:12px;font-weight:800;padding:2px 9px;border-radius:20px;margin-left:8px;}
+.hdr-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
 .empty{text-align:center;padding:36px 20px;color:var(--gray);}
 .empty-icon{font-size:44px;margin-bottom:10px;}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;margin-right:6px;animation:blink 1.5s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+.size-preview{display:flex;align-items:center;gap:12px;padding:14px;background:#fffbef;border:2px solid var(--y);border-radius:12px;margin-bottom:14px;}
+.size-preview-badge{background:var(--y);color:var(--dark);font-weight:900;font-size:22px;padding:8px 18px;border-radius:10px;min-width:60px;text-align:center;flex-shrink:0;}
+.size-preview-input{flex:1;}
+.size-preview-input input{font-size:14px;padding:10px 14px;background:#fff;}
 .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--dark);color:#fff;padding:11px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:999;transition:transform .3s cubic-bezier(.34,1.56,.64,1);pointer-events:none;white-space:nowrap;}
 .toast.show{transform:translateX(-50%) translateY(0);}
-.hdr-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
-.pdf-hint{text-align:center;font-size:11px;color:var(--gray);margin-top:8px;}
-.room-tabs{display:flex;gap:0;margin-bottom:18px;border-radius:12px;overflow:hidden;border:2px solid var(--bd);}
-.room-tab{flex:1;padding:12px;border:none;background:var(--gl);font-family:'Inter',sans-serif;font-weight:700;font-size:14px;cursor:pointer;transition:all .2s;}
-.room-tab.active{background:var(--dark);color:var(--y);}
-.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;margin-right:6px;animation:pulse-dot 1.5s infinite;}
-@keyframes pulse-dot{0%,100%{opacity:1;}50%{opacity:.3;}}
-
-/* POPUP */
 .popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;}
 .popup-box{background:#fff;border-radius:20px;padding:28px;max-width:360px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.2);text-align:center;}
 .popup-icon{font-size:48px;margin-bottom:12px;}
@@ -89,21 +82,20 @@ tbody tr.odd .sbadge-selected{background:var(--r);color:#fff;}
 <div class="hdr">
   <div class="logo">🥔</div>
   <div><h1>POTATO CLOTHING</h1><p>Tra cứu size nhóm – Realtime</p></div>
-  <div class="hdr-badge" id="connStatus">⏳ Kết nối...</div>
+  <div class="hdr-badge" id="connBadge">⏳ Kết nối...</div>
 </div>
 
 <div class="wrap">
 
-  <!-- MODE CARD -->
+  <!-- BƯỚC 1: CHỌN VAI -->
   <div class="card" id="modeCard">
     <div class="slabel">Bắt đầu</div>
     <div class="stitle">Bạn là ai trong đơn này?</div>
     <div class="room-tabs">
-      <button class="room-tab active" onclick="setMode('leader')">👑 Trưởng nhóm</button>
-      <button class="room-tab" onclick="setMode('member')">👤 Thành viên</button>
+      <button class="room-tab active" id="tabLeader" onclick="setMode('leader')">👑 Trưởng nhóm</button>
+      <button class="room-tab" id="tabMember" onclick="setMode('member')">👤 Thành viên</button>
     </div>
 
-    <!-- TRƯỞNG NHÓM -->
     <div id="leaderSetup">
       <div class="mb14">
         <label>Tên đơn hàng</label>
@@ -111,7 +103,7 @@ tbody tr.odd .sbadge-selected{background:var(--r);color:#fff;}
       </div>
       <div class="mb14">
         <label>Loại áo mặc định cho cả nhóm</label>
-        <select id="defaultType" onchange="onDefaultChange()">
+        <select id="defaultType">
           <option value="unisex">Áo Thun Unisex</option>
           <option value="oversized">Áo Thun Oversized</option>
           <option value="polo_unisex">Áo Polo Unisex</option>
@@ -138,30 +130,29 @@ tbody tr.odd .sbadge-selected{background:var(--r);color:#fff;}
         </select>
       </div>
       <div class="mb14">
-        <label>Mật khẩu phòng (để bảo vệ dữ liệu)</label>
-        <input type="password" id="roomPass" placeholder="Đặt mật khẩu cho phòng này"/>
+        <label>Mật khẩu phòng (chỉ dùng khi xóa dữ liệu)</label>
+        <input type="password" id="roomPass" placeholder="Đặt mật khẩu bảo vệ phòng"/>
       </div>
-      <button class="btn-add" onclick="createRoom()">🚀 Tạo phòng đơn hàng</button>
+      <button class="btn-primary" onclick="createRoom()">🚀 Tạo phòng đơn hàng</button>
     </div>
 
-    <!-- THÀNH VIÊN -->
     <div id="memberSetup" style="display:none">
       <div class="mb14">
         <label>Mã phòng do trưởng nhóm gửi</label>
         <input type="text" id="joinCode" placeholder="VD: AO-LOP-12A" style="text-transform:uppercase;letter-spacing:2px;font-weight:700;font-size:18px;"/>
       </div>
-      <button class="btn-add" onclick="joinRoom()">🔗 Vào phòng</button>
+      <button class="btn-primary" onclick="joinRoom()">🔗 Vào phòng</button>
     </div>
   </div>
 
-  <!-- ROOM PANEL -->
+  <!-- PHÒNG -->
   <div id="roomPanel" style="display:none">
 
     <div class="card">
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
         <div>
           <div class="slabel">Phòng đang hoạt động</div>
-          <div style="font-size:20px;font-weight:900;letter-spacing:2px;" id="roomCodeDisplay"></div>
+          <div style="font-size:20px;font-weight:900;letter-spacing:2px" id="roomCodeDisplay"></div>
           <div style="font-size:12px;color:var(--gray);margin-top:4px">Loại áo: <strong id="roomTypeDisplay"></strong></div>
         </div>
         <div style="text-align:right">
@@ -171,28 +162,28 @@ tbody tr.odd .sbadge-selected{background:var(--r);color:#fff;}
       </div>
     </div>
 
-    <!-- FORM THÊM -->
+    <!-- FORM THÊM THÀNH VIÊN -->
     <div class="card">
       <div class="slabel">Điền thông tin</div>
       <div class="stitle">Thêm thành viên</div>
       <div class="mb14">
         <label>Tên thành viên</label>
-        <input type="text" id="mName" placeholder="VD: Nguyễn Văn A" onkeydown="if(event.key==='Enter')add()"/>
+        <input type="text" id="mName" placeholder="VD: Nguyễn Văn A"/>
       </div>
       <div class="grid2">
         <div>
           <label>Chiều cao (cm)</label>
-          <input type="number" id="mH" placeholder="VD: 165" onkeyup="updatePreviewSize()" onkeydown="if(event.key==='Enter')add()"/>
+          <input type="number" id="mH" placeholder="VD: 165" oninput="onSizeInput()"/>
         </div>
         <div>
           <label>Cân nặng (kg)</label>
-          <input type="number" id="mW" placeholder="VD: 55" onkeyup="updatePreviewSize()" onkeydown="if(event.key==='Enter')add()"/>
+          <input type="number" id="mW" placeholder="VD: 55" oninput="onSizeInput()"/>
         </div>
       </div>
       <div class="mb14">
         <label>Loại áo (mặc định theo phòng)</label>
-        <select id="mType" onchange="onMemberTypeChange()">
-          <option value="" id="defOpt">Áo Thun Unisex</option>
+        <select id="mType" onchange="onTypeChange()">
+          <option value="" id="defOpt">—</option>
           <option value="unisex">Áo Thun Unisex</option>
           <option value="oversized">Áo Thun Oversized</option>
           <option value="polo_unisex">Áo Polo Unisex</option>
@@ -218,12 +209,20 @@ tbody tr.odd .sbadge-selected{background:var(--r);color:#fff;}
           <option value="baby">Áo Baby</option>
         </select>
       </div>
-      <div id="previewSizeWrap" style="display:none;margin-bottom:14px;">
-        <label>Size gợi ý — bấm để chọn</label>
-        <div class="size-btns" id="previewSizeBtns"></div>
-        <input type="hidden" id="selectedSize" value=""/>
+
+      <!-- SIZE PREVIEW -->
+      <div id="sizePreview" style="display:none" class="size-preview">
+        <div>
+          <div style="font-size:10px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">Size gợi ý</div>
+          <div class="size-preview-badge" id="suggestedBadge">—</div>
+        </div>
+        <div class="size-preview-input">
+          <label>Tự chọn size (bỏ trống = dùng gợi ý)</label>
+          <input type="text" id="customSize" placeholder="Tự chọn size..." style="text-transform:uppercase;font-weight:700;"/>
+        </div>
       </div>
-      <button class="btn-add" onclick="add()">＋ Thêm thành viên</button>
+
+      <button class="btn-primary" onclick="addMember()">＋ Thêm thành viên</button>
     </div>
 
     <!-- DANH SÁCH -->
@@ -244,7 +243,7 @@ tbody tr.odd .sbadge-selected{background:var(--r);color:#fff;}
 
     <div id="exportWrap" style="display:none">
       <button class="btn-pdf" onclick="exportPDF()">📄 Xuất file PDF</button>
-      <p class="pdf-hint">Mở tab mới → Ctrl+P → Save as PDF</p>
+      <p style="text-align:center;font-size:11px;color:var(--gray);margin-top:8px">Mở tab mới → Ctrl+P → Save as PDF</p>
     </div>
   </div>
 </div>
@@ -252,7 +251,7 @@ tbody tr.odd .sbadge-selected{background:var(--r);color:#fff;}
 <!-- POPUP -->
 <div class="popup-overlay" id="popup" style="display:none">
   <div class="popup-box">
-    <div class="popup-icon" id="popupIcon">⚠️</div>
+    <div class="popup-icon" id="popupIcon"></div>
     <div class="popup-title" id="popupTitle"></div>
     <div class="popup-msg" id="popupMsg"></div>
     <div id="popupExtra"></div>
@@ -266,7 +265,7 @@ tbody tr.odd .sbadge-selected{background:var(--r);color:#fff;}
 import {initializeApp} from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import {getDatabase,ref,set,push,remove,onValue,get,update} from"https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-const cfg={
+const app=initializeApp({
   apiKey:"AIzaSyBS1eP8Ez5ZwCbg01LFjJhJ5GiIxu3VUX4",
   authDomain:"potatoclothing-size.firebaseapp.com",
   databaseURL:"https://potatoclothing-size-default-rtdb.asia-southeast1.firebasedatabase.app",
@@ -274,97 +273,57 @@ const cfg={
   storageBucket:"potatoclothing-size.firebasestorage.app",
   messagingSenderId:"239815824014",
   appId:"1:239815824014:web:97a7d0ce1df3c76178efdf"
-};
-const app=initializeApp(cfg);
+});
 const db=getDatabase(app);
-document.getElementById('connStatus').textContent='✅ Đã kết nối';
-document.getElementById('connStatus').style.cssText='background:#22c55e;color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;margin-left:auto;';
+const badge=document.getElementById('connBadge');
+badge.textContent='✅ Đã kết nối';
+badge.style.cssText='margin-left:auto;background:#22c55e;color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;';
 
 const TYPES={unisex:'Áo Thun Unisex',oversized:'Áo Thun Oversized',polo_unisex:'Áo Polo Unisex',polo_oversized:'Áo Polo Oversized (R18)',zippy_polo:'Zippy Polo',polo_nu:'Áo Polo Nữ',bong_chay:'Áo Bóng Chày',bong_bau_duc:'Áo Bóng Bầu Dục (R60)',bong_ro:'Set Bóng Rổ',raglan:'Áo Raglan',so_mi:'Sơ mi',so_mi_casual:'Sơ mi Casual (R54)',so_mi_co_tru:'Sơ mi Cổ trụ (R69)',hoodie:'Hoodie (R10)',sweater_zip:'Sweater Zip',sweater:'Sweater (R9)',cardigan:'Cardigan (R50)',baby_tee:'Baby Tee (R45)',the_thao_nu:'Thể Thao Nữ (R89)',sporty_zip_nam:'Sporty Zip Nam (R101)',tanktop:'Tanktop (R92)',quan_short:'Quần Short (R25)',baby:'Áo Baby'};
-
-const SIZE_LIST={unisex:['XS','S','M','L','XL','XXL','XXXL'],oversized:['S','M','L','XL'],polo_unisex:['XS','S','M','L','XL','XXL','XXXL'],polo_oversized:['S','M','L'],zippy_polo:['XXS','XS','S','M','L','XL'],polo_nu:['XS','S','M','L','XL','XXL','XXXL'],bong_chay:['S','M','L'],bong_bau_duc:['S','M','L','XL'],bong_ro:['S','M','L','XL'],raglan:['S','M','L','XL','2XL'],so_mi:['S','M','L','XL','XXL'],so_mi_casual:['S','M','L','XL'],so_mi_co_tru:['S','M','L','XL'],hoodie:['S','M','L','XL','XXL'],sweater_zip:['L','XL'],sweater:['S','M','L','XL','XXL'],cardigan:['S','M','L','XL'],baby_tee:['S','M'],the_thao_nu:['S','M','L','XL','2XL'],sporty_zip_nam:['M','L','XL','XXL'],tanktop:['XS','S','M','L','XL'],quan_short:['S','M','L','XL'],baby:['Đo tay']};
+function tn(v){return TYPES[v]||v;}
 
 let currentRoom=null,roomDefaultType='unisex',roomPass='',members={};
 
-function tn(v){return TYPES[v]||v;}
+// ── UTILS ──
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+function showPopup({icon,title,msg,extra,btns}){
+  document.getElementById('popupIcon').textContent=icon||'';
+  document.getElementById('popupTitle').textContent=title||'';
+  document.getElementById('popupMsg').textContent=msg||'';
+  document.getElementById('popupExtra').innerHTML=extra||'';
+  document.getElementById('popupBtns').innerHTML=btns.map((b,i)=>`<button class="popup-btn ${b.cls}" id="pb${i}">${b.label}</button>`).join('');
+  btns.forEach((b,i)=>document.getElementById('pb'+i).onclick=b.fn);
+  document.getElementById('popup').style.display='flex';
+}
+function closePopup(){document.getElementById('popup').style.display='none';}
 
+// ── MODE ──
 window.setMode=function(m){
-  document.querySelectorAll('.room-tab').forEach((t,i)=>t.classList.toggle('active',i===(m==='leader'?0:1)));
+  document.getElementById('tabLeader').classList.toggle('active',m==='leader');
+  document.getElementById('tabMember').classList.toggle('active',m==='member');
   document.getElementById('leaderSetup').style.display=m==='leader'?'':'none';
   document.getElementById('memberSetup').style.display=m==='member'?'':'none';
 };
 
-window.onDefaultChange=function(){
-  let sel=document.getElementById('defaultType');
-  document.getElementById('defOpt').textContent=sel.options[sel.selectedIndex].text;
-};
-
-// Realtime preview size khi nhập cao/nặng/loại áo
-function updatePreviewSize(){
-  let h=parseInt(document.getElementById('mH').value);
-  let w=parseInt(document.getElementById('mW').value);
-  let mt=document.getElementById('mType').value;
-  let type=mt||roomDefaultType;
-  let wrap=document.getElementById('previewSizeWrap');
-  let btns=document.getElementById('previewSizeBtns');
-  if(!h||!w||h<=0||w<=0){wrap.style.display='none';return;}
-  let suggested=calcSize(type,h,w).size;
-  let sizes=SIZE_LIST[type]||[suggested];
-  // set default selected = suggested
-  if(!document.getElementById('selectedSize').value){
-    document.getElementById('selectedSize').value=suggested;
-  }
-  let cur=document.getElementById('selectedSize').value;
-  btns.innerHTML=sizes.map(s=>{
-    let isSug=s===suggested;
-    let isSel=s===cur;
-    return `<button type="button" class="size-btn${isSug?' suggested':''}${isSel?' selected':''}" onclick="selectPreviewSize('${s}','${suggested}')">${s}${isSug?' ✨':''}</button>`;
-  }).join('');
-  wrap.style.display='';
-}
-window.selectPreviewSize=function(s,suggested){
-  document.getElementById('selectedSize').value=s;
-  updatePreviewSize();
-};
-
-window.onMemberTypeChange=function(){
-  let mt=document.getElementById('mType').value;
-  document.getElementById('selectedSize').value='';
-  updatePreviewSize();
-  if(mt&&mt!==roomDefaultType){
-    showPopup({
-      icon:'⚠️',
-      title:'Bạn đang chọn loại áo khác!',
-      msg:'Bạn đang chọn form áo khác với cả nhóm. Vui lòng liên hệ trưởng nhóm trước khi thay đổi để tránh nhầm lẫn đơn hàng.',
-      btns:[
-        {label:'Đã hiểu, tiếp tục',cls:'confirm',fn:()=>closePopup()},
-        {label:'Đổi lại mặc định',cls:'cancel',fn:()=>{document.getElementById('mType').value='';document.getElementById('selectedSize').value='';updatePreviewSize();closePopup();}}
-      ]
-    });
-  }
-};
-
+// ── CREATE / JOIN ROOM ──
 window.createRoom=function(){
   let name=document.getElementById('roomName').value.trim().replace(/\s*-\s*/g,'-').replace(/\s+/g,'-').replace(/-+/g,'-').toUpperCase();
   let pass=document.getElementById('roomPass').value.trim();
   let type=document.getElementById('defaultType').value;
   if(!name){toast('⚠️ Nhập tên đơn hàng!');return;}
-  if(!pass){toast('⚠️ Đặt mật khẩu cho phòng!');return;}
-  // Kiểm tra tên phòng đã tồn tại chưa
+  if(!pass){toast('⚠️ Đặt mật khẩu phòng!');return;}
   get(ref(db,'rooms/'+name)).then(snap=>{
     if(snap.exists()){
-      showPopup({
-        icon:'⚠️',
-        title:'Tên phòng đã tồn tại!',
-        msg:`Phòng "${name}" đã được tạo trước đó. Vui lòng chọn tên khác hoặc vào phòng đó với tư cách Thành viên.`,
-        btns:[{label:'Đã hiểu',cls:'confirm',fn:()=>closePopup()}]
-      });
+      showPopup({icon:'⚠️',title:'Tên phòng đã tồn tại!',msg:`Phòng "${name}" đã được tạo. Vui lòng chọn tên khác.`,btns:[{label:'Đã hiểu',cls:'confirm',fn:closePopup}]});
       return;
     }
     set(ref(db,'rooms/'+name),{defaultType:type,pass,createdAt:Date.now()}).then(()=>{
-      enterRoom(name,type,pass);
-      toast('🎉 Đã tạo phòng '+name);
-    }).catch(e=>toast('❌ Lỗi: '+e.message));
+      enterRoom(name,type,pass);toast('🎉 Tạo phòng '+name+' thành công!');
+    });
   });
 };
 
@@ -373,15 +332,14 @@ window.joinRoom=function(){
   if(!code){toast('⚠️ Nhập mã phòng!');return;}
   get(ref(db,'rooms/'+code)).then(snap=>{
     if(!snap.exists()){toast('❌ Không tìm thấy phòng '+code);return;}
-    let data=snap.val();
-    enterRoom(code,data.defaultType||'unisex',data.pass||'');
+    let d=snap.val();
+    enterRoom(code,d.defaultType||'unisex',d.pass||'');
     toast('✅ Đã vào phòng '+code);
-  }).catch(e=>toast('❌ Lỗi: '+e.message));
+  }).catch(()=>toast('❌ Lỗi kết nối!'));
 };
 
 function enterRoom(code,type,pass){
   currentRoom=code;roomDefaultType=type;roomPass=pass;
-  // Cập nhật URL để share link direct
   let url=new URL(window.location.href);
   url.searchParams.set('room',code);
   window.history.replaceState({},'',url.toString());
@@ -396,225 +354,19 @@ function enterRoom(code,type,pass){
   });
 }
 
-// Auto vào phòng nếu có ?room= trên URL
+// Auto-join từ URL
 window.addEventListener('load',()=>{
-  let params=new URLSearchParams(window.location.search);
-  let roomParam=params.get('room');
-  if(roomParam){
-    // Điền sẵn mã phòng, chuyển sang tab thành viên
+  let room=new URLSearchParams(window.location.search).get('room');
+  if(room){
     setMode('member');
-    document.getElementById('joinCode').value=roomParam.toUpperCase();
-    document.getElementById('joinCode').focus();
-    // Focus vào ô mật khẩu
-    setTimeout(()=>document.getElementById('joinPass').focus(),100);
-    toast('🔗 Vào phòng '+roomParam.toUpperCase()+' — nhập mật khẩu để tiếp tục');
+    document.getElementById('joinCode').value=room.toUpperCase();
+    toast('🔗 Nhập mã phòng '+room.toUpperCase()+' → bấm Vào phòng');
   }
 });
 
-window.add=function(){
-  let name=document.getElementById('mName').value.trim();
-  let h=parseInt(document.getElementById('mH').value);
-  let w=parseInt(document.getElementById('mW').value);
-  let mt=document.getElementById('mType').value;
-  let type=mt||roomDefaultType;
-  if(!name){toast('⚠️ Nhập tên thành viên!');return;}
-  if(type!=='baby'&&(!h||!w||h<=0||w<=0)){toast('⚠️ Nhập chiều cao và cân nặng!');return;}
-  let suggested=calcSize(type,h,w).size;
-  let finalSize=document.getElementById('selectedSize').value||suggested;
-  // Xử lý tên trùng: thêm số phân biệt
-  let existingNames=Object.values(members).map(m=>m.name);
-  let dupCount=existingNames.filter(n=>n===name||n.startsWith(name+' (')).length;
-  let displayName=dupCount>0?`${name} (${dupCount+1})`:name;
-  push(ref(db,'rooms/'+currentRoom+'/members'),{name:displayName,type,suggested,finalSize,ts:Date.now()});
-  document.getElementById('mName').value='';
-  document.getElementById('mH').value='';
-  document.getElementById('mW').value='';
-  document.getElementById('mType').value='';
-  document.getElementById('selectedSize').value='';
-  document.getElementById('previewSizeWrap').style.display='none';
-  document.getElementById('mName').focus();
-  toast('✅ Đã thêm '+displayName);
-};
-
-window.changeSize=function(key,size){
-  update(ref(db,'rooms/'+currentRoom+'/members/'+key),{finalSize:size});
-};
-
-window.removeMember=function(key){
-  remove(ref(db,'rooms/'+currentRoom+'/members/'+key));
-};
-
-window.askClear=function(){
-  showPopup({
-    icon:'🗑',
-    title:'Xóa tất cả thành viên?',
-    msg:'Nhập mật khẩu phòng để xác nhận xóa toàn bộ danh sách.',
-    extra:`<input type="password" id="clearPassInput" placeholder="Mật khẩu phòng" style="width:100%;padding:10px 14px;border:2px solid #e5e7eb;border-radius:10px;font-size:14px;font-family:Inter,sans-serif;margin-bottom:14px;outline:none;"/>`,
-    btns:[
-      {label:'Hủy',cls:'cancel',fn:()=>closePopup()},
-      {label:'Xóa hết',cls:'danger',fn:()=>{
-        let p=document.getElementById('clearPassInput').value;
-        if(p!==roomPass){toast('❌ Sai mật khẩu!');return;}
-        set(ref(db,'rooms/'+currentRoom+'/members'),null);
-        closePopup();toast('🗑 Đã xóa tất cả!');
-      }}
-    ]
-  });
-};
-
-window.copyLink=function(){
-  let url=new URL(window.location.href);
-  url.searchParams.set('room',currentRoom);
-  navigator.clipboard.writeText(url.toString()).then(()=>toast('🔗 Đã copy link phòng!'));
-};
-
-function getMajor(arr){
-  let c={};
-  arr.forEach(m=>c[m.type]=(c[m.type]||0)+1);
-  return Object.entries(c).sort((a,b)=>b[1]-a[1])[0][0];
-}
-
-function render(){
-  let arr=Object.entries(members).map(([k,v])=>({...v,key:k})).sort((a,b)=>a.ts-b.ts);
-  document.getElementById('cnt').textContent=arr.length;
-  let cb=document.getElementById('clearBtn');
-  let sw=document.getElementById('statsWrap');
-  let ew=document.getElementById('exportWrap');
-  if(!arr.length){
-    document.getElementById('tblWrap').innerHTML='<div class="empty"><div class="empty-icon">👥</div><p>Chưa có thành viên nào.<br/>Ai cũng có thể vào phòng và điền!</p></div>';
-    sw.style.display='none';ew.style.display='none';cb.style.display='none';return;
-  }
-  cb.style.display='';ew.style.display='';sw.style.display='';
-
-  // Fix bug: chỉ tính majority từ type của members, không dùng roomDefaultType
-  let major=getMajor(arr);
-
-  let rows=arr.map((m,i)=>{
-    let odd=m.type!==major;
-    let tag=odd?`<span class="odd-tag">KHÁC</span>`:'';
-    let sizes=SIZE_LIST[m.type]||['Đo tay'];
-    let btnHtml=sizes.map(s=>{
-      let isSuggested=s===m.suggested;
-      let isSelected=s===(m.finalSize||m.suggested);
-      let cls='size-btn'+(isSuggested?' suggested':'')+(isSelected?' selected':'');
-      return `<button class="${cls}" onclick="changeSize('${m.key}','${s}')">${s}</button>`;
-    }).join('');
-    return `<tr class="${odd?'odd':''}">
-      <td style="font-weight:600;min-width:100px">${i+1}. ${m.name}${tag}</td>
-      <td style="font-size:11px;min-width:80px">${tn(m.type)}</td>
-      <td><div class="size-btns">${btnHtml}</div></td>
-      <td><button class="btn-del" onclick="removeMember('${m.key}')">✕</button></td>
-    </tr>`;
-  }).join('');
-
-  document.getElementById('tblWrap').innerHTML=`<div class="tbl-wrap"><table>
-    <thead><tr><th>Tên thành viên</th><th>Loại áo</th><th>Size (🟡=gợi ý)</th><th></th></tr></thead>
-    <tbody>${rows}</tbody>
-  </table></div>`;
-
-  // Stats dùng finalSize
-  let c={};let multi=new Set(arr.map(x=>x.type)).size>1;
-  arr.forEach(m=>{
-    let fs=m.finalSize||m.suggested||'?';
-    let k=fs+(multi?` (${tn(m.type)})`:'');
-    if(m.type==='baby') k='Áo Baby';
-    c[k]=(c[k]||0)+1;
-  });
-  const ORD=['XXS','XS','S','M','L','XL','XXL','XXXL','2XL','Liên hệ','Đo tay','Áo Baby'];
-  let keys=Object.keys(c).sort((a,b)=>{
-    let ai=ORD.findIndex(o=>a.startsWith(o)),bi=ORD.findIndex(o=>b.startsWith(o));
-    return (ai<0?99:ai)-(bi<0?99:bi);
-  });
-  document.getElementById('statsGrid').innerHTML=keys.map(k=>`
-    <div class="stat-chip"><div class="sl">${k}</div><div class="sn">${c[k]}</div></div>`).join('');
-}
-
-window.exportPDF=function(){
-  let arr=Object.entries(members).map(([k,v])=>({...v,key:k})).sort((a,b)=>a.ts-b.ts);
-  if(!arr.length){toast('⚠️ Chưa có thành viên!');return;}
-  let major=getMajor(arr);
-  let multi=new Set(arr.map(x=>x.type)).size>1;
-  let sc={};
-  arr.forEach(m=>{
-    let fs=m.finalSize||m.suggested||'?';
-    let k=fs+(multi?` (${tn(m.type)})`:'');
-    if(m.type==='baby') k='Áo Baby';
-    sc[k]=(sc[k]||0)+1;
-  });
-  const ORD=['XXS','XS','S','M','L','XL','XXL','XXXL','2XL'];
-  let sk=Object.keys(sc).sort((a,b)=>{
-    let ai=ORD.findIndex(o=>a.startsWith(o)),bi=ORD.findIndex(o=>b.startsWith(o));
-    return (ai<0?99:ai)-(bi<0?99:bi);
-  });
-  let mRows=arr.map((m,i)=>{
-    let odd=m.type!==major;
-    let hw=m.type==='baby'?'—':`${m.h}cm / ${m.w}kg`;
-    let fs=m.finalSize||m.suggested||'?';
-    let diff=fs!==m.suggested?' ✏️':'';
-    let s=odd?'color:#e53935;font-weight:700':'';
-    let tag=odd?' <span style="background:#e53935;color:#fff;font-size:9px;padding:1px 6px;border-radius:8px">KHÁC</span>':'';
-    return `<tr style="border-bottom:1px solid #eee;${odd?'background:#fff5f5':''}">
-      <td style="padding:7px 10px;${s}">${i+1}</td>
-      <td style="padding:7px 10px;font-weight:600;${s}">${m.name}${tag}</td>
-      <td style="padding:7px 10px;font-size:12px;${s}">${tn(m.type)}</td>
-      <td style="padding:7px 10px;${s}">${hw}</td>
-      <td style="padding:7px 10px;text-align:center;font-weight:800;font-size:15px;${s}">${fs}${diff}</td>
-    </tr>`;
-  }).join('');
-  let sRows=sk.map(k=>`<tr style="border-bottom:1px solid #eee">
-    <td style="padding:7px 12px;font-weight:700">${k}</td>
-    <td style="padding:7px 12px;text-align:center;font-size:20px;font-weight:900">${sc[k]}</td>
-    <td style="padding:7px 12px;color:#888;font-size:12px">người</td>
-  </tr>`).join('');
-  let html=`<!DOCTYPE html><html><head><meta charset="UTF-8"/><title>Potato Size – ${currentRoom}</title>
-  <style>*{margin:0;padding:0;box-sizing:border-box;}body{font-family:Arial,sans-serif;color:#1a1a2e;padding:24px;font-size:13px;}table{width:100%;border-collapse:collapse;}th{text-align:left;font-size:11px;letter-spacing:.6px;}</style>
-  </head><body>
-  <div style="background:#1a1a2e;color:#f3bb23;padding:16px 20px;border-radius:10px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center">
-    <div><div style="font-size:18px;font-weight:900">🥔 POTATO CLOTHING</div><div style="font-size:11px;color:#aaa;margin-top:2px">Phòng: ${currentRoom}</div></div>
-    <div style="text-align:right;font-size:11px;color:#aaa">Ngày: ${new Date().toLocaleDateString('vi-VN')}<br/>Tổng: ${arr.length} thành viên</div>
-  </div>
-  <p style="margin-bottom:10px;font-size:12px;color:#555">Loại áo chủ đạo: <strong>${tn(major)}</strong> &nbsp;|&nbsp; ✏️ = tự chọn size khác gợi ý</p>
-  <table><thead style="background:#1a1a2e"><tr>
-    <th style="padding:8px 10px;color:#f3bb23;width:24px">#</th>
-    <th style="padding:8px 10px;color:#f3bb23">Tên thành viên</th>
-    <th style="padding:8px 10px;color:#f3bb23">Loại áo</th>
-    <th style="padding:8px 10px;color:#f3bb23">Cao/Nặng</th>
-    <th style="padding:8px 10px;color:#f3bb23;text-align:center">Size</th>
-  </tr></thead><tbody>${mRows}</tbody></table>
-  <h3 style="margin:22px 0 10px;font-size:13px;font-weight:800">THỐNG KÊ SIZE</h3>
-  <table style="width:auto;min-width:180px"><thead style="background:#f3bb23"><tr>
-    <th style="padding:7px 12px;color:#1a1a2e">Size</th>
-    <th style="padding:7px 12px;color:#1a1a2e;text-align:center">Số lượng</th>
-    <th style="padding:7px 12px;color:#1a1a2e"></th>
-  </tr></thead><tbody>${sRows}</tbody></table>
-  <div style="margin-top:28px;padding-top:10px;border-top:1px solid #eee;text-align:center;font-size:10px;color:#aaa">
-    potato.clothing | 028 6683 0386 | info@potato.clothing
-  </div>
-  <script>window.onload=function(){setTimeout(()=>window.print(),300);}<\/script>
-  </body></html>`;
-  let w=window.open('','_blank');
-  if(!w){toast('⚠️ Cho phép popup rồi thử lại!');return;}
-  w.document.write(html);w.document.close();
-  toast('📄 Đang mở cửa sổ in...');
-};
-
-// POPUP SYSTEM
-function showPopup({icon,title,msg,extra,btns}){
-  document.getElementById('popupIcon').textContent=icon||'⚠️';
-  document.getElementById('popupTitle').textContent=title||'';
-  document.getElementById('popupMsg').textContent=msg||'';
-  document.getElementById('popupExtra').innerHTML=extra||'';
-  document.getElementById('popupBtns').innerHTML=btns.map((b,i)=>
-    `<button class="popup-btn ${b.cls}" id="pbtn${i}">${b.label}</button>`
-  ).join('');
-  btns.forEach((b,i)=>document.getElementById('pbtn'+i).onclick=b.fn);
-  document.getElementById('popup').style.display='flex';
-}
-function closePopup(){document.getElementById('popup').style.display='none';}
-window.closePopup=closePopup;
-
+// ── SIZE LOGIC ──
 function calcSize(type,h,w){
-  if(type==='baby') return {size:'Đo tay'};
+  if(type==='baby') return 'Đo tay';
   let sH=0,sW=0,sizes=[];
   switch(type){
     case 'unisex':
@@ -706,16 +458,221 @@ function calcSize(type,h,w){
       sizes=["","S","M","L","XL"];break;
   }
   let idx=Math.max(sH,sW);
-  if(idx<=0||idx>=sizes.length) return {size:'Liên hệ'};
-  return {size:sizes[idx]};
+  if(idx<=0||idx>=sizes.length) return 'Liên hệ';
+  return sizes[idx];
 }
 
-function toast(msg){
-  let t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2500);
+// ── SIZE PREVIEW ──
+window.onSizeInput=function(){
+  let h=parseInt(document.getElementById('mH').value);
+  let w=parseInt(document.getElementById('mW').value);
+  let type=document.getElementById('mType').value||roomDefaultType;
+  let preview=document.getElementById('sizePreview');
+  if(!h||!w||h<=0||w<=0){preview.style.display='none';return;}
+  let s=calcSize(type,h,w);
+  document.getElementById('suggestedBadge').textContent=s;
+  preview.style.display='flex';
+};
+
+window.onTypeChange=function(){
+  let mt=document.getElementById('mType').value;
+  onSizeInput();
+  if(mt&&mt!==roomDefaultType){
+    showPopup({
+      icon:'⚠️',
+      title:'Bạn đang chọn loại áo khác!',
+      msg:'Form áo này khác với cả nhóm. Vui lòng liên hệ trưởng nhóm trước khi thay đổi.',
+      btns:[
+        {label:'Đã hiểu, tiếp tục',cls:'confirm',fn:closePopup},
+        {label:'Đổi lại mặc định',cls:'cancel',fn:()=>{document.getElementById('mType').value='';onSizeInput();closePopup();}}
+      ]
+    });
+  }
+};
+
+// ── ADD MEMBER ──
+window.addMember=function(){
+  let name=document.getElementById('mName').value.trim();
+  let h=parseInt(document.getElementById('mH').value);
+  let w=parseInt(document.getElementById('mW').value);
+  let mt=document.getElementById('mType').value;
+  let type=mt||roomDefaultType;
+  let customSize=document.getElementById('customSize').value.trim().toUpperCase();
+
+  if(!name){toast('⚠️ Nhập tên thành viên!');return;}
+  if(type!=='baby'&&(!h||!w||h<=0||w<=0)){toast('⚠️ Nhập chiều cao và cân nặng!');return;}
+
+  // Kiểm tra tên trùng
+  let names=Object.values(members).map(m=>m.name.trim().toLowerCase());
+  if(names.includes(name.toLowerCase())){
+    showPopup({
+      icon:'⚠️',
+      title:'Tên đã tồn tại!',
+      msg:`"${name}" đã có trong danh sách. Vui lòng dùng tên đầy đủ để phân biệt (VD: Gia Bảo A, Gia Bảo B).`,
+      btns:[{label:'Đã hiểu',cls:'confirm',fn:closePopup}]
+    });
+    return;
+  }
+
+  let suggested=calcSize(type,h,w);
+  let finalSize=customSize||suggested;
+
+  push(ref(db,'rooms/'+currentRoom+'/members'),{name,type,suggested,finalSize,ts:Date.now()});
+
+  // Reset form
+  document.getElementById('mName').value='';
+  document.getElementById('mH').value='';
+  document.getElementById('mW').value='';
+  document.getElementById('mType').value='';
+  document.getElementById('customSize').value='';
+  document.getElementById('sizePreview').style.display='none';
+  document.getElementById('mName').focus();
+  toast('✅ Đã thêm '+name);
+};
+
+// ── REMOVE / CLEAR ──
+window.removeMember=function(key){remove(ref(db,'rooms/'+currentRoom+'/members/'+key));};
+
+window.askClear=function(){
+  showPopup({
+    icon:'🗑',title:'Xóa tất cả thành viên?',
+    msg:'Nhập mật khẩu phòng để xác nhận.',
+    extra:`<input type="password" id="clearPw" placeholder="Mật khẩu phòng" style="width:100%;padding:10px 14px;border:2px solid #e5e7eb;border-radius:10px;font-size:14px;font-family:Inter,sans-serif;margin-bottom:14px;outline:none;"/>`,
+    btns:[
+      {label:'Hủy',cls:'cancel',fn:closePopup},
+      {label:'Xóa hết',cls:'danger',fn:()=>{
+        if(document.getElementById('clearPw').value!==roomPass){toast('❌ Sai mật khẩu!');return;}
+        set(ref(db,'rooms/'+currentRoom+'/members'),null);
+        closePopup();toast('🗑 Đã xóa!');
+      }}
+    ]
+  });
+};
+
+window.copyLink=function(){
+  let url=new URL(window.location.href);
+  url.searchParams.set('room',currentRoom);
+  navigator.clipboard.writeText(url.toString()).then(()=>toast('🔗 Đã copy link!'));
+};
+
+// ── RENDER ──
+function getMajor(arr){
+  let c={};arr.forEach(m=>c[m.type]=(c[m.type]||0)+1);
+  return Object.entries(c).sort((a,b)=>b[1]-a[1])[0][0];
 }
-window.toast=toast;
+
+function render(){
+  let arr=Object.entries(members).map(([k,v])=>({...v,key:k})).sort((a,b)=>a.ts-b.ts);
+  document.getElementById('cnt').textContent=arr.length;
+  let cb=document.getElementById('clearBtn');
+  let sw=document.getElementById('statsWrap');
+  let ew=document.getElementById('exportWrap');
+  if(!arr.length){
+    document.getElementById('tblWrap').innerHTML='<div class="empty"><div class="empty-icon">👥</div><p>Chưa có thành viên nào.</p></div>';
+    sw.style.display='none';ew.style.display='none';cb.style.display='none';return;
+  }
+  cb.style.display='';ew.style.display='';sw.style.display='';
+  let major=roomDefaultType;
+  let rows=arr.map((m,i)=>{
+    let odd=m.type!==major;
+    let tag=odd?`<span class="odd-tag">KHÁC</span>`:'';
+    let isCustom=m.finalSize&&m.finalSize!==m.suggested;
+    let badge=`<span class="sbadge${isCustom?' custom':''}">${m.finalSize||m.suggested}</span>${isCustom?'<span style="font-size:10px;color:var(--gray);margin-left:4px">✏️</span>':''}`;
+    return `<tr class="${odd?'odd':''}">
+      <td style="font-weight:600">${i+1}. ${m.name}${tag}</td>
+      <td style="font-size:11px">${tn(m.type)}</td>
+      <td>${badge}</td>
+      <td><button class="btn-del" onclick="removeMember('${m.key}')">✕</button></td>
+    </tr>`;
+  }).join('');
+  document.getElementById('tblWrap').innerHTML=`<div class="tbl-wrap"><table>
+    <thead><tr><th>Tên thành viên</th><th>Loại áo</th><th>Size (🟡=gợi ý)</th><th></th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>`;
+
+  let multi=new Set(arr.map(x=>x.type)).size>1;
+  let sc={};
+  arr.forEach(m=>{
+    let fs=m.finalSize||m.suggested||'?';
+    let k=fs+(multi?` (${tn(m.type)})`:'');
+    if(m.type==='baby') k='Áo Baby';
+    sc[k]=(sc[k]||0)+1;
+  });
+  const ORD=['XXS','XS','S','M','L','XL','XXL','XXXL','2XL','Liên hệ','Đo tay'];
+  let keys=Object.keys(sc).sort((a,b)=>{
+    let ai=ORD.findIndex(o=>a.startsWith(o)),bi=ORD.findIndex(o=>b.startsWith(o));
+    return (ai<0?99:ai)-(bi<0?99:bi);
+  });
+  document.getElementById('statsGrid').innerHTML=keys.map(k=>`
+    <div class="stat-chip"><div class="sl">${k}</div><div class="sn">${sc[k]}</div></div>`).join('');
+}
+
+// ── EXPORT PDF ──
+window.exportPDF=function(){
+  let arr=Object.entries(members).map(([k,v])=>({...v,key:k})).sort((a,b)=>a.ts-b.ts);
+  if(!arr.length){toast('⚠️ Chưa có thành viên!');return;}
+  let major=getMajor(arr);
+  let multi=new Set(arr.map(x=>x.type)).size>1;
+  let sc={};
+  arr.forEach(m=>{
+    let fs=m.finalSize||m.suggested||'?';
+    let k=fs+(multi?` (${tn(m.type)})`:'');
+    if(m.type==='baby') k='Áo Baby';
+    sc[k]=(sc[k]||0)+1;
+  });
+  const ORD=['XXS','XS','S','M','L','XL','XXL','XXXL','2XL'];
+  let sk=Object.keys(sc).sort((a,b)=>{
+    let ai=ORD.findIndex(o=>a.startsWith(o)),bi=ORD.findIndex(o=>b.startsWith(o));
+    return (ai<0?99:ai)-(bi<0?99:bi);
+  });
+  let mRows=arr.map((m,i)=>{
+    let odd=m.type!==major;
+    let fs=m.finalSize||m.suggested||'?';
+    let isCustom=fs!==m.suggested;
+    let s=odd?'color:#e53935;font-weight:700':'';
+    let tag=odd?' <span style="background:#e53935;color:#fff;font-size:9px;padding:1px 6px;border-radius:8px">KHÁC</span>':'';
+    return `<tr style="border-bottom:1px solid #eee;${odd?'background:#fff5f5':''}">
+      <td style="padding:7px 10px;${s}">${i+1}</td>
+      <td style="padding:7px 10px;font-weight:600;${s}">${m.name}${tag}</td>
+      <td style="padding:7px 10px;font-size:12px;${s}">${tn(m.type)}</td>
+      <td style="padding:7px 10px;text-align:center;font-weight:800;font-size:15px;${s}">${fs}${isCustom?' ✏️':''}</td>
+    </tr>`;
+  }).join('');
+  let sRows=sk.map(k=>`<tr style="border-bottom:1px solid #eee">
+    <td style="padding:7px 12px;font-weight:700">${k}</td>
+    <td style="padding:7px 12px;text-align:center;font-size:20px;font-weight:900">${sc[k]}</td>
+    <td style="padding:7px 12px;color:#888">người</td>
+  </tr>`).join('');
+  let w=window.open('','_blank');
+  if(!w){toast('⚠️ Cho phép popup rồi thử lại!');return;}
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"/><title>Potato Size – ${currentRoom}</title>
+  <style>*{margin:0;padding:0;box-sizing:border-box;}body{font-family:Arial,sans-serif;color:#1a1a2e;padding:24px;font-size:13px;}table{width:100%;border-collapse:collapse;}th{text-align:left;font-size:11px;}</style>
+  </head><body>
+  <div style="background:#1a1a2e;color:#f3bb23;padding:16px 20px;border-radius:10px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center">
+    <div><div style="font-size:18px;font-weight:900">🥔 POTATO CLOTHING</div><div style="font-size:11px;color:#aaa;margin-top:2px">Phòng: ${currentRoom}</div></div>
+    <div style="text-align:right;font-size:11px;color:#aaa">Ngày: ${new Date().toLocaleDateString('vi-VN')}<br/>Tổng: ${arr.length} thành viên</div>
+  </div>
+  <p style="margin-bottom:10px;font-size:12px;color:#555">Loại áo chủ đạo: <strong>${tn(major)}</strong> &nbsp;|&nbsp; ✏️ = tự chọn size</p>
+  <table><thead style="background:#1a1a2e"><tr>
+    <th style="padding:8px 10px;color:#f3bb23;width:24px">#</th>
+    <th style="padding:8px 10px;color:#f3bb23">Tên thành viên</th>
+    <th style="padding:8px 10px;color:#f3bb23">Loại áo</th>
+    <th style="padding:8px 10px;color:#f3bb23;text-align:center">Size</th>
+  </tr></thead><tbody>${mRows}</tbody></table>
+  <h3 style="margin:22px 0 10px;font-size:13px;font-weight:800">THỐNG KÊ SIZE</h3>
+  <table style="width:auto;min-width:180px"><thead style="background:#f3bb23"><tr>
+    <th style="padding:7px 12px;color:#1a1a2e">Size</th>
+    <th style="padding:7px 12px;color:#1a1a2e;text-align:center">Số lượng</th>
+    <th style="padding:7px 12px;color:#1a1a2e"></th>
+  </tr></thead><tbody>${sRows}</tbody></table>
+  <div style="margin-top:28px;padding-top:10px;border-top:1px solid #eee;text-align:center;font-size:10px;color:#aaa">
+    potato.clothing | 028 6683 0386 | info@potato.clothing
+  </div>
+  <script>window.onload=function(){setTimeout(()=>window.print(),300);}<\/script>
+  </body></html>`);
+  w.document.close();
+  toast('📄 Đang mở cửa sổ in...');
+};
 </script>
 </body>
 </html>
