@@ -334,11 +334,11 @@ window.joinRoom=function(){
   let code=document.getElementById('joinCode').value.trim().toUpperCase();
   if(!code){toast('⚠️ Nhập mã phòng!');return;}
   get(ref(db,'rooms/'+code)).then(snap=>{
-    if(!snap.exists()){toast('❌ Không tìm thấy phòng '+code);return;}
+    if(!snap||!snap.exists()){toast('❌ Không tìm thấy phòng '+code);return;}
     let d=snap.val();
     enterRoom(code,d.defaultType||'unisex',d.pass||'');
     toast('✅ Đã vào phòng '+code);
-  }).catch(()=>toast('❌ Lỗi kết nối!'));
+  }).catch(()=>toast('❌ Không tìm thấy phòng '+code));
 };
 
 function enterRoom(code,type,pass){
