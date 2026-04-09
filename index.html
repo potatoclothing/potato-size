@@ -150,10 +150,6 @@ tbody tr.odd .sbadge-selected{background:var(--r);color:#fff;}
         <label>Mã phòng do trưởng nhóm gửi</label>
         <input type="text" id="joinCode" placeholder="VD: AO-LOP-12A" style="text-transform:uppercase;letter-spacing:2px;font-weight:700;font-size:18px;"/>
       </div>
-      <div class="mb14">
-        <label>Mật khẩu phòng</label>
-        <input type="password" id="joinPass" placeholder="Nhập mật khẩu phòng"/>
-      </div>
       <button class="btn-add" onclick="joinRoom()">🔗 Vào phòng</button>
     </div>
   </div>
@@ -186,11 +182,11 @@ tbody tr.odd .sbadge-selected{background:var(--r);color:#fff;}
       <div class="grid2">
         <div>
           <label>Chiều cao (cm)</label>
-          <input type="number" id="mH" placeholder="VD: 165" onkeydown="if(event.key==='Enter')add()"/>
+          <input type="number" id="mH" placeholder="VD: 165" onkeyup="updatePreviewSize()" onkeydown="if(event.key==='Enter')add()"/>
         </div>
         <div>
           <label>Cân nặng (kg)</label>
-          <input type="number" id="mW" placeholder="VD: 55" onkeydown="if(event.key==='Enter')add()"/>
+          <input type="number" id="mW" placeholder="VD: 55" onkeyup="updatePreviewSize()" onkeydown="if(event.key==='Enter')add()"/>
         </div>
       </div>
       <div class="mb14">
@@ -221,6 +217,15 @@ tbody tr.odd .sbadge-selected{background:var(--r);color:#fff;}
           <option value="quan_short">Quần Short (R25)</option>
           <option value="baby">Áo Baby</option>
         </select>
+      </div>
+      <div id="previewSizeWrap" style="display:none;margin-bottom:14px;">
+        <label>Size gợi ý</label>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <div style="background:var(--y);color:var(--dark);font-weight:900;font-size:20px;padding:8px 20px;border-radius:10px;min-width:60px;text-align:center;" id="suggestedSizeDisplay">—</div>
+          <div style="flex:1;min-width:120px;">
+            <input type="text" id="selectedSize" placeholder="Tự chọn size (bỏ trống = dùng gợi ý)" style="font-size:14px;padding:10px 14px;"/>
+          </div>
+        </div>
       </div>
       <button class="btn-add" onclick="add()">＋ Thêm thành viên</button>
     </div>
@@ -298,8 +303,26 @@ window.onDefaultChange=function(){
   document.getElementById('defOpt').textContent=sel.options[sel.selectedIndex].text;
 };
 
+// Realtime preview size khi nhập cao/nặng/loại áo
+function updatePreviewSize(){
+  let h=parseInt(document.getElementById('mH').value);
+  let w=parseInt(document.getElementById('mW').value);
+  let mt=document.getElementById('mType').value;
+  let type=mt||roomDefaultType;
+  let wrap=document.getElementById('previewSizeWrap');
+  if(!h||!w||h<=0||w<=0){wrap.style.display='none';return;}
+  let suggested=calcSize(type,h,w).size;
+  document.getElementById('suggestedSizeDisplay').textContent=suggested;
+  wrap.style.display='';
+}
+window.selectPreviewSize=function(s){
+  document.getElementById('selectedSize').value=s;
+};
+
 window.onMemberTypeChange=function(){
   let mt=document.getElementById('mType').value;
+  document.getElementById('selectedSize').value='';
+  updatePreviewSize();
   if(mt&&mt!==roomDefaultType){
     showPopup({
       icon:'⚠️',
@@ -307,14 +330,14 @@ window.onMemberTypeChange=function(){
       msg:'Bạn đang chọn form áo khác với cả nhóm. Vui lòng liên hệ trưởng nhóm trước khi thay đổi để tránh nhầm lẫn đơn hàng.',
       btns:[
         {label:'Đã hiểu, tiếp tục',cls:'confirm',fn:()=>closePopup()},
-        {label:'Đổi lại mặc định',cls:'cancel',fn:()=>{document.getElementById('mType').value='';closePopup();}}
+        {label:'Đổi lại mặc định',cls:'cancel',fn:()=>{document.getElementById('mType').value='';document.getElementById('selectedSize').value='';updatePreviewSize();closePopup();}}
       ]
     });
   }
 };
 
 window.createRoom=function(){
-  let name=document.getElementById('roomName').value.trim().replace(/\s+/g,'-').toUpperCase();
+  let name=document.getElementById('roomName').value.trim().replace(/\s*-\s*/g,'-').replace(/\s+/g,'-').replace(/-+/g,'-').toUpperCase();
   let pass=document.getElementById('roomPass').value.trim();
   let type=document.getElementById('defaultType').value;
   if(!name){toast('⚠️ Nhập tên đơn hàng!');return;}
@@ -339,14 +362,11 @@ window.createRoom=function(){
 
 window.joinRoom=function(){
   let code=document.getElementById('joinCode').value.trim().toUpperCase();
-  let pass=document.getElementById('joinPass').value.trim();
   if(!code){toast('⚠️ Nhập mã phòng!');return;}
-  if(!pass){toast('⚠️ Nhập mật khẩu phòng!');return;}
   get(ref(db,'rooms/'+code)).then(snap=>{
     if(!snap.exists()){toast('❌ Không tìm thấy phòng '+code);return;}
     let data=snap.val();
-    if(data.pass&&data.pass!==pass){toast('❌ Sai mật khẩu!');return;}
-    enterRoom(code,data.defaultType||'unisex',pass);
+    enterRoom(code,data.defaultType||'unisex',data.pass||'');
     toast('✅ Đã vào phòng '+code);
   }).catch(e=>toast('❌ Lỗi: '+e.message));
 };
@@ -392,13 +412,20 @@ window.add=function(){
   if(!name){toast('⚠️ Nhập tên thành viên!');return;}
   if(type!=='baby'&&(!h||!w||h<=0||w<=0)){toast('⚠️ Nhập chiều cao và cân nặng!');return;}
   let suggested=calcSize(type,h,w).size;
-  push(ref(db,'rooms/'+currentRoom+'/members'),{name,h:h||0,w:w||0,type,suggested,finalSize:suggested,ts:Date.now()});
+  let finalSize=document.getElementById('selectedSize').value||suggested;
+  // Xử lý tên trùng: thêm số phân biệt
+  let existingNames=Object.values(members).map(m=>m.name);
+  let dupCount=existingNames.filter(n=>n===name||n.startsWith(name+' (')).length;
+  let displayName=dupCount>0?`${name} (${dupCount+1})`:name;
+  push(ref(db,'rooms/'+currentRoom+'/members'),{name:displayName,type,suggested,finalSize,ts:Date.now()});
   document.getElementById('mName').value='';
   document.getElementById('mH').value='';
   document.getElementById('mW').value='';
   document.getElementById('mType').value='';
+  document.getElementById('selectedSize').value='';
+  document.getElementById('previewSizeWrap').style.display='none';
   document.getElementById('mName').focus();
-  toast('✅ Đã thêm '+name);
+  toast('✅ Đã thêm '+displayName);
 };
 
 window.changeSize=function(key,size){
@@ -456,26 +483,20 @@ function render(){
 
   let rows=arr.map((m,i)=>{
     let odd=m.type!==major;
-    let hw=m.type==='baby'?'—':`${m.h}cm / ${m.w}kg`;
     let tag=odd?`<span class="odd-tag">KHÁC</span>`:'';
-    let sizes=SIZE_LIST[m.type]||['Đo tay'];
-    let btnHtml=sizes.map(s=>{
-      let isSuggested=s===m.suggested;
-      let isSelected=s===(m.finalSize||m.suggested);
-      let cls='size-btn'+(isSuggested?' suggested':'')+(isSelected?' selected':'');
-      return `<button class="${cls}" onclick="changeSize('${m.key}','${s}')">${s}${isSuggested&&!isSelected?' ✨':''}</button>`;
-    }).join('');
+    let finalSize=m.finalSize||m.suggested||'?';
+    let isCustom=m.finalSize&&m.finalSize!==m.suggested;
+    let sizeBadge=`<span style="background:${isCustom?'var(--dark)':'var(--y)'};color:${isCustom?'#fff':'var(--dark)'};font-weight:900;font-size:15px;padding:5px 14px;border-radius:8px;display:inline-block">${finalSize}</span>${isCustom?` <span style="font-size:10px;color:var(--gray)">✏️ tự chọn</span>`:''}`;
     return `<tr class="${odd?'odd':''}">
       <td style="font-weight:600;min-width:100px">${i+1}. ${m.name}${tag}</td>
       <td style="font-size:11px;min-width:80px">${tn(m.type)}</td>
-      <td style="font-size:12px;white-space:nowrap">${hw}</td>
-      <td><div class="size-btns">${btnHtml}</div></td>
+      <td>${sizeBadge}</td>
       <td><button class="btn-del" onclick="removeMember('${m.key}')">✕</button></td>
     </tr>`;
   }).join('');
 
   document.getElementById('tblWrap').innerHTML=`<div class="tbl-wrap"><table>
-    <thead><tr><th>Tên thành viên</th><th>Loại áo</th><th>Cao/Nặng</th><th>Size (🟡=gợi ý)</th><th></th></tr></thead>
+    <thead><tr><th>Tên thành viên</th><th>Loại áo</th><th>Size (🟡=gợi ý)</th><th></th></tr></thead>
     <tbody>${rows}</tbody>
   </table></div>`;
 
