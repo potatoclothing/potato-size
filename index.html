@@ -585,7 +585,7 @@ function render(){
       <td style="font-weight:600">${i+1}. ${m.name}${tag}</td>
       <td style="font-size:11px">${tn(m.type)}</td>
       <td>${badge}</td>
-      <td>${delBtn}</td>
+      <td><button class="btn-del" onclick="removeMember('${m.key}')">✕</button></td>
     </tr>`;
   }).join('');
   document.getElementById('tblWrap').innerHTML=`<div class="tbl-wrap"><table>
