@@ -331,14 +331,21 @@ window.createRoom=function(){
 };
 
 window.joinRoom=function(){
-  let code=document.getElementById('joinCode').value.trim().toUpperCase();
+  let code=document.getElementById('joinCode').value.trim().replace(/\s/g,'').toUpperCase();
   if(!code){toast('⚠️ Nhập mã phòng!');return;}
+  toast('⏳ Đang tìm phòng...');
   get(ref(db,'rooms/'+code)).then(snap=>{
-    if(!snap||!snap.exists()){toast('❌ Không tìm thấy phòng '+code);return;}
+    if(!snap||!snap.exists()){
+      toast('❌ Không tìm thấy phòng '+code);
+      return;
+    }
     let d=snap.val();
     enterRoom(code,d.defaultType||'unisex',d.pass||'');
     toast('✅ Đã vào phòng '+code);
-  }).catch(()=>toast('❌ Không tìm thấy phòng '+code));
+  }).catch((e)=>{
+    console.error('joinRoom error:',e);
+    toast('❌ Lỗi: '+e.message);
+  });
 };
 
 function enterRoom(code,type,pass){
